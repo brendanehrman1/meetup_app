@@ -1,0 +1,2 @@
+rootProject.name='planowestapp1'
+include ':app'
