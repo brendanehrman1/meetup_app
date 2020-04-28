@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             b.setY(b.getY() + 2);
         }
     }
-
+    //Ethan was here
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
