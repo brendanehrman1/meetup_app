@@ -3,7 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.example.planowestapp1"
         minSdkVersion 21
@@ -31,4 +34,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation fileTree(dir: 'C:\\Users\\brend\\Downloads\\Coding\\JSON\\org.json.jar', include: ['*.aar', '*.jar'], exclude: [])
+    implementation files('C:\\Users\\brend\\Downloads\\Coding\\MySQL\\mysql-connector-java-8.0.19.jar')
 }

@@ -1,99 +1,100 @@
 package com.example.planowestapp1;
-
-import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
-
-        import android.app.Activity;
-        import android.app.ProgressDialog;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.view.Menu;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-        import android.view.View;
+import android.view.View;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
 public class MainActivity extends Activity {
-    Activity context;
-    TextView tView;
-    ProgressDialog pd;
+    private static final String PREF_NAME = "sharedPrefs";
+
+    private EditText nameInput;
+    private TextView output;
+    private String input;
+    private int userid;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         //TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context=this;
-
-
-    }
-
-    public void onStart(){
-        super.onStart();
-
-        BackTask bt=new BackTask();
-        bt.execute("http://www.worldbestlearningcenter.com/example.txt");
-
-
-    }
-
-    //background process to download the file from internet
-    private class BackTask extends AsyncTask<String,Integer,Void>{
-        String text="";
-        protected void onPreExecute(){
-            super.onPreExecute();
-            //display progress dialog
-            pd = new ProgressDialog(context);
-            pd.setTitle("Reading the text file");
-            pd.setMessage("Please wait.");
-            pd.setCancelable(true);
-            pd.setIndeterminate(false);
-            pd.show();
-
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
         }
-
-        protected Void doInBackground(String...params){
-            URL url;
+        nameInput = (EditText) findViewById(R.id.nameInput);
+        output = (TextView) findViewById(R.id.output);
+        loadData();
+        if (nameInput != null) {
             try {
-                //create url object to point to the file location on internet
-                url = new URL(params[0]);
-                //make a request to server
-                HttpURLConnection con=(HttpURLConnection)url.openConnection();
-                //get InputStream instance
-                InputStream is=con.getInputStream();
-                //create BufferedReader object
-                BufferedReader br=new BufferedReader(new InputStreamReader(is));
-                String line;
-                //read content of the file line by line
-                while((line=br.readLine())!=null){
-                    text+=line;
-
-                }
-
-                br.close();
-
-            }catch (Exception e) {
+                displayMessage(null);
+            } catch (IOException e) {
                 e.printStackTrace();
-                //close dialog if error occurs
-                if(pd!=null) pd.dismiss();
             }
-
-            return null;
-
         }
 
+    }
 
-        protected void onPostExecute(Void result){
-            //close dialog
-            if(pd!=null)
-                pd.dismiss();
-            tView=(TextView)findViewById(R.id.textView);
-            //display read text in TextView
-            tView.setText(text);
+    public void displayMessage(View v) throws IOException {
+        if (input == null)
+            input = nameInput.getText().toString();
+        String info = getPersonData(input);
+        try {
+            JSONObject json = new JSONObject(info);
+            output.setText(json.getString("username") + "'s ID is " + json.getString("userid") + ".");
+            saveData();
+        } catch(Exception e) {
+            output.setText("Your user does not exist");
+        }
+        input = null;
+    }
 
+    public void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("NAME", input);
+        editor.apply();
+    }
+
+    public void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        input = sharedPreferences.getString("NAME", null);
+    }
+
+    public static String getPersonData(String name) throws IOException {
+
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/planowestapp1_webservice/people/" + name).openConnection();
+
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+
+        if(responseCode == 200){
+            String response = "";
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+
+            return response;
         }
 
-
+        // an error happened
+        return null;
     }
 
 }
