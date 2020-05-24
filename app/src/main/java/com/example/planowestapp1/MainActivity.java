@@ -1,5 +1,6 @@
 package com.example.planowestapp1;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,15 +15,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class MainActivity extends Activity {
-    private static final String PREF_NAME = "sharedPrefs";
+    public static final String PREF_NAME = "sharedPrefs";
 
-    private EditText nameInput;
-    private TextView output;
-    private String input;
-    private int userid;
+    private String displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +34,37 @@ public class MainActivity extends Activity {
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        nameInput = (EditText) findViewById(R.id.nameInput);
-        output = (TextView) findViewById(R.id.output);
-        loadData();
-        if (nameInput != null) {
-            try {
-                displayMessage(null);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        loadAccountData();
+        if (displayName != null) {
+            startActivity(new Intent(MainActivity.this, AccountActivity.class));
+        } else {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
     }
 
+    public void loadAccountData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        displayName = sharedPreferences.getString("NAME", null);
+    }
+
+    public void goToAccount(View v) throws IOException {
+        startActivity(new Intent(MainActivity.this, AccountActivity.class));
+    }
+
+    public void goToTimes(View v) throws IOException {
+        //startActivity(new Intent(MainActivity.this, TimeActivity.class));
+    }
+
+    public void goToCalendar(View v) throws IOException {
+        //startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+    }
+
+    public void goToFriends(View v) throws IOException {
+        //startActivity(new Intent(MainActivity.this, FriendActivity.class));
+    }
+
+    /*
     public void displayMessage(View v) throws IOException {
         if (input == null)
             input = nameInput.getText().toString();
@@ -95,6 +113,6 @@ public class MainActivity extends Activity {
 
         // an error happened
         return null;
-    }
+    } */
 
 }
