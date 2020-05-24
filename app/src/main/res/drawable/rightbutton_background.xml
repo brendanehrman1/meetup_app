@@ -20,8 +20,8 @@
 
     <item
         android:drawable="@drawable/account_ic"
-        android:bottom="42dp"
+        android:bottom="52dp"
         android:left="12dp"
         android:right="12dp"
-        android:top="28dp"/>
+        android:top="30dp"/>
 </layer-list>

@@ -7,27 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <View
+    <TextView
         android:id="@+id/farRightBtn"
         android:layout_width="60dp"
         android:layout_height="126dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="485dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="484dp"
         android:background="@drawable/rightbutton_background"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        android:text="\n\n\n\n\n\nACCOUNT"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <TextView
         android:id="@+id/farLeftBtn"
         android:layout_width="60dp"
         android:layout_height="126dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="485dp"
         android:background="@drawable/leftbutton_background"
+        android:gravity="center_horizontal"
+        android:text="\n\n\n\n\n\nFRIENDS"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <TextView
         android:id="@+id/centerRightBtn"
         android:layout_width="80dp"
         android:layout_height="134dp"
@@ -35,10 +41,13 @@
         android:layout_marginTop="484dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/centerrightbutton_background"
+        android:gravity="center_horizontal"
+        android:text="\n\n\n\n\n\nMY TIMES"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <TextView
         android:id="@+id/centerLeftBtn"
         android:layout_width="80dp"
         android:layout_height="134dp"
@@ -46,15 +55,21 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="484dp"
         android:background="@drawable/centerleftbutton_background"
+        android:gravity="center_horizontal"
+        android:text="\n\n\n\n\n\nCALENDAR"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <TextView
         android:id="@+id/centerBtn"
         android:layout_width="90dp"
         android:layout_height="134dp"
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
+        android:gravity="center_horizontal"
+        android:text="\n\n\n\n\n\nMEET UP"
+        android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/centerLeftBtn"

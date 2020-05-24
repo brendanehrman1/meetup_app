@@ -52,7 +52,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     usernameInput.getText().toString(), passwordInput.getText().toString());
             JSONObject json = new JSONObject(info);
             if (json.getString("status").equals("displayName")) {
-                status.setText("Sorry, you display name is already taken. Please try again.");
+                status.setText("Sorry, your display name is already taken. Please try again.");
             } else if (json.getString("status").equals("userPass")) {
                 status.setText("Sorry, another account has the same username and password. Please try again.");
             } else {
