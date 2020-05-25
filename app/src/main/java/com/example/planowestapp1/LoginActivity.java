@@ -26,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordInput;
     private TextView status;
     private String displayName;
-    private String username;
-    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +46,18 @@ public class LoginActivity extends AppCompatActivity {
         usernameInput = (EditText) findViewById(R.id.username);
         passwordInput = (EditText) findViewById(R.id.password);
         status = (TextView) findViewById(R.id.statusDisplay);
-        String info = getLoginData(usernameInput.getText().toString(), passwordInput.getText().toString());
+        String usernameInputStr = usernameInput.getText().toString();
+        String passwordInputStr = passwordInput.getText().toString();
+        if (usernameInputStr.length() == 0 || passwordInputStr.length() == 0) {
+            status.setText("Sorry, you must enter your username and password before logging in. Please try again.");
+            return;
+        }
+        String info = getLoginData(usernameInputStr, passwordInputStr);
         JSONObject json = new JSONObject(info);
         if (json.getString("status").equals("notExist"))
             status.setText("Sorry, your username and password are not correct. Please try again.");
         else {
             displayName = json.getString("displayName");
-            username = json.getString("username");
-            password = json.getString("password");
             saveLoginData();
             startActivity(new Intent(LoginActivity.this, AccountActivity.class));
         }
@@ -65,12 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("NAME", displayName);
-        editor.putString("USERNAME", username);
-        editor.putString("PASSWORD", password);
         editor.apply();
     }
 
-    public static String getLoginData(String user, String pass) throws IOException {
+    public String getLoginData(String user, String pass) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?username=" + user + "&password=" + pass).openConnection();
 

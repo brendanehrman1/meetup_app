@@ -1,11 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountActivity">
+    tools:context=".FriendActivity">
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center|center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendList" />
+
+    <LinearLayout
+        android:id="@+id/friendsBtn"
+        android:layout_width="41dp"
+        android:layout_height="175dp"
+        android:layout_weight="1"
+        android:background="@drawable/friendborder_background"
+        android:gravity="center"
+        android:onClick="goToFriends"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/friendsTxt"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:rotation="-90"
+            android:text="FRIENDS"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/requestsBtn"
+        android:layout_width="41dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="175dp"
+        android:layout_weight="1"
+        android:background="@drawable/friendborder_background"
+        android:gravity="center"
+        android:onClick="goToFriendRequests"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/requestsTxt"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:rotation="-90"
+            android:text="FRIEND REQUESTS"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/potFriendsBtn"
+        android:layout_width="41dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="350dp"
+        android:layout_weight="1"
+        android:background="@drawable/friendborder_background"
+        android:gravity="center"
+        android:onClick="goToMyRequests"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/potFriendsTxt"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:rotation="-90"
+            android:text="YOUR REQUESTS"
+            android:textSize="10sp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -137,48 +217,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/greetDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="132dp" />
-
-    <TextView
-        android:id="@+id/logoutBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="196dp"
-        android:background="@drawable/login_background"
-        android:onClick="logout"
-        android:paddingTop="16dp"
-        android:text="                           LOG OUT"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
+    <ListView
+        android:id="@+id/friendList"
+        android:layout_width="317dp"
+        android:layout_height="375dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/friendList" />
+
     <TextView
-        android:id="@+id/removeBtn"
+        android:id="@+id/addFriendBtn"
         android:layout_width="189dp"
         android:layout_height="52dp"
         android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="396dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/login_background"
-        android:onClick="removeAccount"
+        android:onClick="addFriend"
         android:paddingTop="10dp"
-        android:text="                         REMOVE\n                            ACCOUNT"
+        android:text="                           ADD \n                             FRIEND"
         android:textAlignment="textStart"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

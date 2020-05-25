@@ -48,8 +48,14 @@ public class CreateAccountActivity extends AppCompatActivity {
         if (!passwordInput.getText().toString().equals(confPassInput.getText().toString())) {
             status.setText("Sorry, your password and confirmation password do not match. Please try again.");
         } else {
-            String info = getAccountData(displayNameInput.getText().toString(),
-                    usernameInput.getText().toString(), passwordInput.getText().toString());
+            String displayNameStr = displayNameInput.getText().toString();
+            String usernameStr = usernameInput.getText().toString();
+            String passwordStr = passwordInput.getText().toString();
+            if (displayNameStr.length() == 0 || usernameStr.length() == 0 || passwordStr.length() == 0) {
+                status.setText("Sorry, you must enter your display name, username, and password before creating an account. Please try again.");
+                return;
+            }
+            String info = getAccountData(displayNameStr, usernameStr, passwordStr);
             JSONObject json = new JSONObject(info);
             if (json.getString("status").equals("displayName")) {
                 status.setText("Sorry, your display name is already taken. Please try again.");

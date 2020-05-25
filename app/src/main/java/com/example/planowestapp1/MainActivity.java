@@ -35,12 +35,16 @@ public class MainActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
         loadAccountData();
-        if (displayName != null) {
-            startActivity(new Intent(MainActivity.this, AccountActivity.class));
-        } else {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        try {
+            String info = getAccountData(displayName);
+            JSONObject json = new JSONObject(info);
+            if (!json.getString("status").equals("notExist") && displayName != null)
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
+            else
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
-
     }
 
     public void loadAccountData() {
@@ -64,36 +68,9 @@ public class MainActivity extends Activity {
         //startActivity(new Intent(MainActivity.this, FriendActivity.class));
     }
 
-    /*
-    public void displayMessage(View v) throws IOException {
-        if (input == null)
-            input = nameInput.getText().toString();
-        String info = getPersonData(input);
-        try {
-            JSONObject json = new JSONObject(info);
-            output.setText(json.getString("username") + "'s ID is " + json.getString("userid") + ".");
-            saveData();
-        } catch(Exception e) {
-            output.setText("Your user does not exist");
-        }
-        input = null;
-    }
+    public String getAccountData(String displayName) throws IOException {
 
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAME", input);
-        editor.apply();
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        input = sharedPreferences.getString("NAME", null);
-    }
-
-    public static String getPersonData(String name) throws IOException {
-
-        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/planowestapp1_webservice/people/" + name).openConnection();
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?displayName=" + displayName).openConnection();
 
         connection.setRequestMethod("GET");
 
@@ -113,6 +90,6 @@ public class MainActivity extends Activity {
 
         // an error happened
         return null;
-    } */
+    }
 
 }

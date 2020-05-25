@@ -35,7 +35,11 @@ public class AccountActivity extends AppCompatActivity {
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        loadAccountData();
+        try {
+            loadAccountData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         update();
     }
 
@@ -54,8 +58,6 @@ public class AccountActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("NAME");
-        editor.remove("USERNAME");
-        editor.remove("PASSWORD");
         editor.apply();
         startActivity(new Intent(AccountActivity.this, LoginActivity.class));
     }
@@ -71,11 +73,13 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    public void loadAccountData() {
+    public void loadAccountData() throws IOException, JSONException {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         displayName = sharedPreferences.getString("NAME", null);
-        username = sharedPreferences.getString("USERNAME", null);
-        password =  sharedPreferences.getString("PASSWORD", null);
+        String info = getAccountData(displayName);
+        JSONObject json = new JSONObject(info);
+        username = json.getString("username");
+        password = json.getString("password");
     }
 
     public void goToAccount(View v) throws IOException {
@@ -83,20 +87,44 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void goToTimes(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, TimeActivity.class));
+        //startActivity(new Intent(AccountActivity.this, TimeActivity.class));
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+        //startActivity(new Intent(AccountActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, FriendActivity.class));
+        startActivity(new Intent(AccountActivity.this, FriendActivity.class));
     }
 
     public static String removeUserData(String displayName) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/remove?displayName=" + displayName).openConnection();
+
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+
+        if(responseCode == 200){
+            String response = "";
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+
+            return response;
+        }
+
+        // an error happened
+        return null;
+    }
+
+    public static String getAccountData(String displayName) throws IOException {
+
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?displayName=" + displayName).openConnection();
 
         connection.setRequestMethod("GET");
 
