@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
     }
 
     public void goToTimes(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, TimeActivity.class));
+        startActivity(new Intent(MainActivity.this, TimesActivity.class));
     }
 
     public void goToCalendar(View v) throws IOException {
@@ -65,7 +65,11 @@ public class MainActivity extends Activity {
     }
 
     public void goToFriends(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, FriendActivity.class));
+        startActivity(new Intent(MainActivity.this, FriendActivity.class));
+    }
+
+    public void goToAddTime(View v) throws IOException {
+        startActivity(new Intent(MainActivity.this, AddTimeActivity.class));
     }
 
     public String getAccountData(String displayName) throws IOException {

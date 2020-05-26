@@ -95,6 +95,18 @@ public class FriendDataActivity extends AppCompatActivity {
         startActivity(new Intent(FriendDataActivity.this, FriendActivity.class));
     }
 
+    public void goToAddTime(View v) throws IOException {
+        startActivity(new Intent(FriendDataActivity.this, AddTimeActivity.class));
+    }
+
+    public void goToTimes(View v) throws IOException {
+        startActivity(new Intent(FriendDataActivity.this, TimesActivity.class));
+    }
+
+    public void goToCalendar(View v) throws IOException {
+        //startActivity(new Intent(FriendDataActivity.this, CalendarActivity.class));
+    }
+
     public void goToFriendRequests(View v) throws IOException {
         Intent i = new Intent(FriendDataActivity.this, FriendActivity.class);
         i.putExtra("TAB", "FRIEND_REQUESTS");

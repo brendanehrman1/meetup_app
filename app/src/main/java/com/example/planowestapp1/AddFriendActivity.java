@@ -70,6 +70,14 @@ public class AddFriendActivity extends AppCompatActivity {
         startActivity(new Intent(AddFriendActivity.this, FriendActivity.class));
     }
 
+    public void goToCalendar(View v) throws IOException {
+        //startActivity(new Intent(AddFriendActivity.this, CalendarActivity.class));
+    }
+
+    public void goToTimes(View v) throws IOException {
+        startActivity(new Intent(AddFriendActivity.this, TimesActivity.class));
+    }
+
     public void goToFriendRequests(View v) throws IOException {
         Intent i = new Intent(AddFriendActivity.this, FriendActivity.class);
         i.putExtra("TAB", "FRIEND_REQUESTS");
@@ -84,6 +92,10 @@ public class AddFriendActivity extends AppCompatActivity {
 
     public void goToAccount(View v) throws IOException {
         startActivity(new Intent(AddFriendActivity.this, AccountActivity.class));
+    }
+
+    public void goToAddTime(View v) throws IOException {
+        startActivity(new Intent(AddFriendActivity.this, AddTimeActivity.class));
     }
 
     public String getRequestData(String friendName, String nickname) throws IOException {

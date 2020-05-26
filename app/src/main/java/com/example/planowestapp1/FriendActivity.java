@@ -43,28 +43,26 @@ public class FriendActivity extends AppCompatActivity {
         }
         loadUserData();
         listView = (ListView) findViewById(R.id.friendList);
-        display = (TextView) findViewById(R.id.display);
+        display = (TextView) findViewById(R.id.statusDisplay);
         try {
             String info = getFriendData(displayName);
             JSONObject json = new JSONObject(info);
             JSONArray jArr = json.getJSONArray("friends");
-            ArrayList<String> friendNameList = new ArrayList<>();
-            ArrayList<String> nicknameList = new ArrayList<>();
+            ArrayList<FriendEntry> friendList = new ArrayList<>();
             for (int i = 0; i < jArr.length(); i++) {
-                friendNameList.add(new JSONObject(jArr.getString(i)).getString("friendName"));
-                nicknameList.add(new JSONObject(jArr.getString(i)).getString("nickname"));
+                JSONObject friendOb = new JSONObject(jArr.getString(i));
+                friendList.add(new FriendEntry(friendOb.getString("friendName"), friendOb.getString("nickname")));
             }
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.friend_entry_layout, nicknameList);
-            if (tab.equals("FRIEND_REQUESTS"))
-                arrayAdapter = new ArrayAdapter(this, R.layout.friend_entry_layout, friendNameList);
-            listView.setAdapter(arrayAdapter);
+            FriendListAdapter friendListAdapter = new FriendListAdapter(this, R.layout.friend_entry_layout, friendList);
+            friendListAdapter.setTab(tab);
+            listView.setAdapter(friendListAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent i = new Intent(FriendActivity.this, FriendDataActivity.class);
                     i.putExtra("TAB", tab);
-                    i.putExtra("FRIEND_NAME", friendNameList.get(position));
-                    i.putExtra("NICKNAME", nicknameList.get(position));
+                    i.putExtra("FRIEND_NAME", friendList.get(position).getFriendName());
+                    i.putExtra("NICKNAME", friendList.get(position).getNickname());
                     startActivity(i);
                 }
             });
@@ -105,6 +103,18 @@ public class FriendActivity extends AppCompatActivity {
 
     public void addFriend(View v) throws IOException {
         startActivity(new Intent(FriendActivity.this, AddFriendActivity.class));
+    }
+
+    public void goToAddTime(View v) throws IOException {
+        startActivity(new Intent(FriendActivity.this, AddTimeActivity.class));
+    }
+
+    public void goToTimes(View v) throws IOException {
+        startActivity(new Intent(FriendActivity.this, TimesActivity.class));
+    }
+
+    public void goToCalendar(View v) throws IOException {
+        //startActivity(new Intent(FriendActivity.this, AddTimeActivity.class));
     }
 
     public String getFriendData(String displayName) throws IOException {

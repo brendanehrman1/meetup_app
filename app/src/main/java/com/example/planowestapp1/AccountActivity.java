@@ -87,7 +87,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void goToTimes(View v) throws IOException {
-        //startActivity(new Intent(AccountActivity.this, TimeActivity.class));
+        startActivity(new Intent(AccountActivity.this, TimesActivity.class));
     }
 
     public void goToCalendar(View v) throws IOException {
@@ -96,6 +96,10 @@ public class AccountActivity extends AppCompatActivity {
 
     public void goToFriends(View v) throws IOException {
         startActivity(new Intent(AccountActivity.this, FriendActivity.class));
+    }
+
+    public void goToAddTime(View v) throws IOException {
+        startActivity(new Intent(AccountActivity.this, AddTimeActivity.class));
     }
 
     public static String removeUserData(String displayName) throws IOException {

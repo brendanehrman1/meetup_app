@@ -2,128 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FriendDataActivity">
+    tools:context=".AddTimeActivity">
 
     <TextView
-        android:id="@+id/negativeBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="404dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/login_background"
-        android:onClick="doNegative"
-        android:paddingTop="10dp"
-        android:text="                         REMOVE\n                           REQUEST"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/positiveBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="404dp"
-        android:layout_marginEnd="168dp"
-        android:background="@drawable/login_background"
-        android:onClick="doPositive"
-        android:paddingTop="10dp"
-        android:text="                         CHANGE\n                          NICKNAME"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/friendInfoDisplay"
-        android:layout_width="0dp"
+        android:id="@+id/statusDisplay"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:textSize="20sp"
+        android:gravity="center|center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/removeBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/friendsBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/friendsBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToFriends"
-        android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/friendsTxt"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:rotation="-90"
-            android:text="FRIENDS"
-            android:textSize="10sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/requestsBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="175dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToFriendRequests"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/requestsTxt"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:rotation="-90"
-            android:text="FRIEND REQUESTS"
-            android:textSize="10sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/potFriendsBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="350dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToMyRequests"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/potFriendsTxt"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:rotation="-90"
-            android:text="MY REQUESTS"
-            android:textSize="10sp" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/descInput" />
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -259,26 +151,120 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/statusDisplay"
-        android:layout_width="0dp"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/negativeBtn"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="45dp"
+        android:text="Day: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Hour: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Duration: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Description: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Minute: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="220dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/nicknameInput" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/hourSpinner"
+        android:layout_width="220dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daySpinner" />
+
+    <Spinner
+        android:id="@+id/minuteSpinner"
+        android:layout_width="220dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hourSpinner" />
+
+    <Spinner
+        android:id="@+id/durationSpinner"
+        android:layout_width="220dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minuteSpinner" />
 
     <EditText
-        android:id="@+id/nicknameInput"
-        android:layout_width="250dp"
+        android:id="@+id/descInput"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Nickname"
-        android:inputType="textPersonName"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/addBtn"
+        android:layout_width="189dp"
+        android:layout_height="52dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="392dp"
+        android:layout_marginEnd="112dp"
+        android:background="@drawable/login_background"
+        android:onClick="addTime"
+        android:paddingTop="16dp"
+        android:text="                          CONFIRM"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/requestsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/friendInfoDisplay" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
