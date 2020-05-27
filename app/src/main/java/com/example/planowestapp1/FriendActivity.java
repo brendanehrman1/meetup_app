@@ -114,7 +114,7 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(FriendActivity.this, AddTimeActivity.class));
+        startActivity(new Intent(FriendActivity.this, AddTimeActivity.class));
     }
 
     public String getFriendData(String displayName) throws IOException {

@@ -104,7 +104,7 @@ public class FriendDataActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(FriendDataActivity.this, CalendarActivity.class));
+        startActivity(new Intent(FriendDataActivity.this, CalendarActivity.class));
     }
 
     public void goToFriendRequests(View v) throws IOException {

@@ -91,7 +91,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(AccountActivity.this, CalendarActivity.class));
+        startActivity(new Intent(AccountActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {

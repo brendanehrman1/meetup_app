@@ -1,20 +1,25 @@
 package com.example.planowestapp1;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,9 +32,8 @@ import static com.example.planowestapp1.MainActivity.PREF_NAME;
 public class AddTimeActivity extends AppCompatActivity {
 
     private Spinner daySpinner;
-    private Spinner hourSpinner;
-    private Spinner minuteSpinner;
-    private Spinner durationSpinner;
+    private TimePicker timePicker;
+    private TimePicker durationPicker;
     private EditText descInput;
     private TextView status;
 
@@ -45,75 +49,75 @@ public class AddTimeActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         loadTimeData();
-        ArrayList<String> dayOptions = new ArrayList<>();
         String[] days = {"Today", "Tomorrow", "In Two Days"};
+        ArrayList<String> dayList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            dayOptions.add(days[i]);
+            dayList.add(days[i]);
         }
-        ArrayList<String> hourOptions = new ArrayList<>();
-        for (int i = 1; i <= 24; i++) {
-            hourOptions.add(Integer.toString(i));
+        try {
+            Class<?> classForid = Class.forName("com.android.internal.R$id");
+            Field fieldHr = classForid.getField("hour");
+            NumberPicker mHourPicker = (NumberPicker) durationPicker.findViewById(fieldHr.getInt(null));
+            mHourPicker.setWrapSelectorWheel(false);
+            Field fieldMin = classForid.getField("minute");
+            NumberPicker mMinutePicker = (NumberPicker) durationPicker.findViewById(fieldMin.getInt(null));
+            mMinutePicker.setMinValue(1);
+            mMinutePicker.setMaxValue(3);
+            ArrayList<String> mDisplayedValuesMin = new ArrayList<String>();
+            for (int i = 15; i < 60; i += 15) {
+                mDisplayedValuesMin.add(String.format("%02d", i));
+            }
+            mMinutePicker.setDisplayedValues(mDisplayedValuesMin.toArray(new String[0]));
+            mMinutePicker.setWrapSelectorWheel(false);
+            mMinutePicker = (NumberPicker) timePicker.findViewById(fieldMin.getInt(null));
+            mMinutePicker.setMaxValue(3);
+            mDisplayedValuesMin = new ArrayList<String>();
+            for (int i = 0; i < 60; i += 15) {
+                mDisplayedValuesMin.add(String.format("%02d", i));
+            }
+            mMinutePicker.setDisplayedValues(mDisplayedValuesMin.toArray(new String[0]));
+            mMinutePicker.setWrapSelectorWheel(false);
+
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+
         }
-        ArrayList<String> minuteOptions = new ArrayList<>();
-        for (int i = 0; i <= 60; i += 5) {
-            minuteOptions.add(Integer.toString(i));
-        }
-        ArrayList<String> durationOptions = new ArrayList<>();
-        for (int i = 15; i <= 1440; i += 15) {
-            if (i < 60)
-                durationOptions.add(i + " minutes");
-            else
-                durationOptions.add((i / 60) + " hours, " + (i % 60) + " minutes");
-        }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dayOptions);
-        daySpinner.setAdapter(dataAdapter);
-        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hourOptions);
-        hourSpinner.setAdapter(dataAdapter);
-        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, minuteOptions);
-        minuteSpinner.setAdapter(dataAdapter);
-        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, durationOptions);
-        durationSpinner.setAdapter(dataAdapter);
+        daySpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dayList));
+        durationPicker.setIs24HourView(true);
     }
 
     public void loadTimeData() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         displayName = sharedPreferences.getString("NAME", null);
         daySpinner = (Spinner) findViewById(R.id.daySpinner);
-        hourSpinner = (Spinner) findViewById(R.id.hourSpinner);
-        minuteSpinner = (Spinner) findViewById(R.id.minuteSpinner);
-        durationSpinner = (Spinner) findViewById(R.id.durationSpinner);
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        durationPicker = (TimePicker) findViewById(R.id.durationPicker);
         descInput = (EditText) findViewById(R.id.descInput);
         status = (TextView) findViewById(R.id.statusDisplay);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void addTime(View v) throws IOException, JSONException {
-        String changedDayStr = "0";
-        String day = daySpinner.getSelectedItem().toString();
-        if (day.equals("Tomorrow"))
-            changedDayStr = "1";
-        else if (day.equals("In Two Days"))
-            changedDayStr = "2";
+        String changedDayStr = daySpinner.getSelectedItem().toString();
+        int changedDay = 0;
+        if (changedDayStr.equals("Tomorrow"))
+            changedDay = 1;
+        else if (changedDayStr.equals("In Two Days"))
+            changedDay = 2;
         int offsetHours = TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 3600000;
-        String hour = hourSpinner.getSelectedItem().toString();
-        hour = Integer.toString(Integer.parseInt(hour) - offsetHours);
-        if (Integer.parseInt(hour) > 24) {
-            changedDayStr = Integer.toString(Integer.parseInt(changedDayStr) + 1);
-            hour = Integer.toString(Integer.parseInt(hour) - 24);
-        } else if (Integer.parseInt(hour) < 0) {
-            changedDayStr = Integer.toString(Integer.parseInt(changedDayStr) - 1);
-            hour = Integer.toString(Integer.parseInt(hour) + 24);
+        int hour = timePicker.getCurrentHour();
+        hour -= offsetHours;
+        if (hour > 24) {
+            changedDay++;
+            hour -= 24;
+        } else if (hour < 0) {
+            changedDay--;
+            hour += 24;
         }
 
-        String minute = minuteSpinner.getSelectedItem().toString();
-        Scanner scan = new Scanner(durationSpinner.getSelectedItem().toString());
-        String duration = Integer.toString(scan.nextInt() * 60);
-        if (scan.next().equals("minutes")) {
-            duration = Integer.toString(Integer.parseInt(duration) / 60);
-        } else {
-            duration = Integer.toString(Integer.parseInt(duration) + scan.nextInt());
-        }
+        int minute = timePicker.getCurrentMinute() * 15;
+        int duration = durationPicker.getHour() * 60 + (durationPicker.getMinute() * 15);
         String description = descInput.getText().toString();
-        addTimeData(Integer.toString(Integer.parseInt(changedDayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1), hour, minute, duration, description);
+        addTimeData(changedDay + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1, hour, minute, duration, description);
         //JSONObject json = new JSONObject(info);
         //status.setText(json.get("status") + " " + hour + " " + minute + " " + (Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1)));
         startActivity(new Intent(AddTimeActivity.this, TimesActivity.class));
@@ -128,7 +132,7 @@ public class AddTimeActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(AddTimeActivity.this, CalendarActivity.class));
+        startActivity(new Intent(AddTimeActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {
@@ -139,7 +143,7 @@ public class AddTimeActivity extends AppCompatActivity {
         startActivity(new Intent(AddTimeActivity.this, AddTimeActivity.class));
     }
 
-    public String addTimeData(String date, String hour, String minute, String duration, String description) throws IOException {
+    public String addTimeData(int date, int hour, int minute, int duration, String description) throws IOException {
 
         description = description.replaceAll(" ", "%20");
 

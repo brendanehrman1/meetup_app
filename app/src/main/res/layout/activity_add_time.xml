@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/removeBtn"
+        app:layout_constraintBottom_toTopOf="@+id/addBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -165,40 +165,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
-        android:text="Hour: "
+        android:layout_marginTop="15dp"
+        android:text="Starting Time:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/daySpinner" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:text="Duration: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:gravity="center"
+        android:text="HOUR"
+        app:layout_constraintBottom_toTopOf="@+id/durationPicker"
+        app:layout_constraintStart_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:gravity="center"
+        android:text="MINUTE"
+        app:layout_constraintBottom_toTopOf="@+id/durationPicker"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
         android:text="Description: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/durationPicker" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
-        android:text="Minute: "
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="264dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="10dp"
+        android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TimePicker
+        android:id="@+id/durationPicker"
+        android:layout_width="260dp"
+        android:layout_height="77dp"
+        android:timePickerMode="spinner"
+        android:theme="@style/time_picker"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Spinner
         android:id="@+id/daySpinner"
@@ -208,33 +239,6 @@
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/hourSpinner"
-        android:layout_width="220dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daySpinner" />
-
-    <Spinner
-        android:id="@+id/minuteSpinner"
-        android:layout_width="220dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hourSpinner" />
-
-    <Spinner
-        android:id="@+id/durationSpinner"
-        android:layout_width="220dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minuteSpinner" />
 
     <EditText
         android:id="@+id/descInput"
@@ -254,8 +258,8 @@
         android:layout_height="52dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="392dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="108dp"
         android:background="@drawable/login_background"
         android:onClick="addTime"
         android:paddingTop="16dp"

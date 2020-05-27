@@ -46,15 +46,18 @@ public class TimesActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.timeList);
         display = (TextView) findViewById(R.id.statusDisplay);
         try {
-            String info = getTimeData(displayName);
+            int daysInYear = Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.DAY_OF_YEAR) - 1;
+            int hour = Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY);
+            int minute = Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.MINUTE);
+            String info = getTimeData(displayName, daysInYear, hour, minute);
             JSONObject json = new JSONObject(info);
             JSONArray jArr = json.getJSONArray("times");
             ArrayList<TimeEntry> timeList = new ArrayList<>();
             for (int i = 0; i < jArr.length(); i++) {
                 JSONObject friendOb = new JSONObject(jArr.getString(i));
                 int date = Integer.parseInt(friendOb.getString("date"));
-                int hour = Integer.parseInt(friendOb.getString("hour"));
-                int minute = Integer.parseInt(friendOb.getString("minute"));
+                hour = Integer.parseInt(friendOb.getString("hour"));
+                minute = Integer.parseInt(friendOb.getString("minute"));
                 int duration = Integer.parseInt(friendOb.getString("duration"));
                 String description = friendOb.getString("description");
                 int offsetHours = TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 3600000;
@@ -62,11 +65,14 @@ public class TimesActivity extends AppCompatActivity {
                 if (hour < 0) {
                     date--;
                     hour += 24;
+                } else if (hour > 24) {
+                    date++;
+                    hour -= 24;
                 }
-                int daysInYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
+                daysInYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
                 int difference = date - daysInYear;
                 if (difference >= 0 && difference <= 2)
-                    timeList.add(new TimeEntry(difference, hour, minute, duration, description));
+                    timeList.add(new TimeEntry(displayName, difference, hour, minute, duration, description));
             }
             TimeListAdapter timeListAdapter = new TimeListAdapter(this, R.layout.time_entry_layout, timeList);
             listView.setAdapter(timeListAdapter);
@@ -101,7 +107,7 @@ public class TimesActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(TimesActivity.this, CalendarActivity.class));
+        startActivity(new Intent(TimesActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {
@@ -112,9 +118,9 @@ public class TimesActivity extends AppCompatActivity {
         startActivity(new Intent(TimesActivity.this, AddTimeActivity.class));
     }
 
-    public String getTimeData(String displayName) throws IOException {
+    public String getTimeData(String displayName, int date, int hour, int minute) throws IOException {
 
-        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/get?userName=" + displayName;
+        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/get?userName=" + displayName + "&date=" + date + "&hour=" + hour + "&minute=" + minute;
 
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 

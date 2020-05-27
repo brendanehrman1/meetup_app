@@ -71,7 +71,7 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(AddFriendActivity.this, CalendarActivity.class));
+        startActivity(new Intent(AddFriendActivity.this, CalendarActivity.class));
     }
 
     public void goToTimes(View v) throws IOException {

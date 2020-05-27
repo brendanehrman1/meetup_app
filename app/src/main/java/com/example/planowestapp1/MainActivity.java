@@ -14,7 +14,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.TimeZone;
@@ -35,7 +37,11 @@ public class MainActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
         loadAccountData();
+        int daysInYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 3;
+        int hour = Calendar.getInstance().get(Calendar.HOUR);
+        int minute = Calendar.getInstance().get(Calendar.MINUTE);
         try {
+            updateTimes(daysInYear, hour, minute);
             String info = getAccountData(displayName);
             JSONObject json = new JSONObject(info);
             if (!json.getString("status").equals("notExist") && displayName != null)
@@ -61,7 +67,7 @@ public class MainActivity extends Activity {
     }
 
     public void goToCalendar(View v) throws IOException {
-        //startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+        startActivity(new Intent(MainActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {
@@ -75,6 +81,29 @@ public class MainActivity extends Activity {
     public String getAccountData(String displayName) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?displayName=" + displayName).openConnection();
+
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+
+        if(responseCode == 200){
+            String response = "";
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+
+            return response;
+        }
+
+        // an error happened
+        return null;
+    }
+
+    public String updateTimes(int date, int hour, int minute) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/update?date=" + date + "&hour=" + hour + "&minute=" + minute).openConnection();
 
         connection.setRequestMethod("GET");
 
