@@ -167,6 +167,14 @@ public class FriendDataActivity extends AppCompatActivity {
     }
 
     public void removeFriendData() throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        friendName = friendName.replaceAll(" ", "%20");
+        friendName = friendName.replaceAll("&", "%26");
+        friendName = friendName.replaceAll("#", "%23");
+
         if (tab.equals("FRIENDS") || tab.equals("MY_REQUESTS")) {
             String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/remove?userName=" + displayName + "&friendName=" + friendName;
 
@@ -187,6 +195,17 @@ public class FriendDataActivity extends AppCompatActivity {
     }
 
     public void approveData(String nickname) throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        friendName = friendName.replaceAll(" ", "%20");
+        friendName = friendName.replaceAll("&", "%26");
+        friendName = friendName.replaceAll("#", "%23");
+        nickname = nickname.replaceAll(" ", "%20");
+        nickname = nickname.replaceAll("&", "%26");
+        nickname = nickname.replaceAll("#", "%23");
+
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/mod?userName=" + friendName + "&friendName=" + displayName + "&pending=0";
 
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
@@ -205,6 +224,16 @@ public class FriendDataActivity extends AppCompatActivity {
     }
 
     public String changeNicknameData(String nickname) throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        friendName = friendName.replaceAll(" ", "%20");
+        friendName = friendName.replaceAll("&", "%26");
+        friendName = friendName.replaceAll("#", "%23");
+        nickname = nickname.replaceAll(" ", "%20");
+        nickname = nickname.replaceAll("&", "%26");
+        nickname = nickname.replaceAll("#", "%23");
 
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/mod?userName=" + displayName + "&friendName=" + friendName + "&nickname=" + nickname;
 

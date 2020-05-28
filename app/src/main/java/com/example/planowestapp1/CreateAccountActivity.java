@@ -69,6 +69,16 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     public static String getAccountData(String displayName, String user, String pass) throws IOException {
 
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        user = user.replaceAll(" ", "%20");
+        user = user.replaceAll("&", "%26");
+        user = user.replaceAll("#", "%23");
+        pass = pass.replaceAll(" ", "%20");
+        pass = pass.replaceAll("&", "%26");
+        pass = pass.replaceAll("#", "%23");
+
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/add?displayName=" + displayName + "&username=" + user + "&password=" + pass).openConnection();
 
         connection.setRequestMethod("GET");

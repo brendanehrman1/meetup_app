@@ -100,6 +100,16 @@ public class AddFriendActivity extends AppCompatActivity {
 
     public String getRequestData(String friendName, String nickname) throws IOException {
 
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        friendName = friendName.replaceAll(" ", "%20");
+        friendName = friendName.replaceAll("&", "%26");
+        friendName = friendName.replaceAll("#", "%23");
+        nickname = nickname.replaceAll(" ", "%20");
+        nickname = nickname.replaceAll("&", "%26");
+        nickname = nickname.replaceAll("#", "%23");
+
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/add?userName=" + displayName + "&friendName=" + friendName +  "&nickname=" + nickname).openConnection();
 
         connection.setRequestMethod("GET");

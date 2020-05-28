@@ -189,16 +189,24 @@ public class TimeDataActivity extends AppCompatActivity {
         int minute = timePicker.getCurrentMinute() * 15;
         int duration = durationPicker.getHour() * 60 + (durationPicker.getMinute() * 15);
         String description = descInput.getText().toString();
-        removeTimeData(Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1));
-        addTimeData(changedDay + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1, hour, minute, duration, description);
-        //JSONObject json = new JSONObject(info);
-        //status.setText(json.get("status") + " " + hour + " " + minute + " " + (Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1)));
-        startActivity(new Intent(TimeDataActivity.this, TimesActivity.class));
+        if (description.length() == 0)
+            status.setText("Sorry, you must provide a description to set a time. Please try again.");
+        else if (changedDay == 0 && (hour < Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY) || hour == Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY) && minute < Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.MINUTE)))
+            status.setText("Sorry, your event must be held after the current time. Please try again.");
+        else {
+            removeTimeData(Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1));
+            addTimeData(changedDay + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1, hour, minute, duration, description);
+            //JSONObject json = new JSONObject(info);
+            //status.setText(json.get("status") + " " + hour + " " + minute + " " + (Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1)));
+            startActivity(new Intent(TimeDataActivity.this, TimesActivity.class));
+        }
     }
 
     public String addTimeData(int date, int hour, int minute, int duration, String description) throws IOException {
 
         description = description.replaceAll(" ", "%20");
+        description = description.replaceAll("&", "%26");
+        description = description.replaceAll("#", "%23");
 
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/add?userName=" + displayName + "&date=" + date + "&hour=" + hour + "&minute=" + minute + "&duration=" + duration + "&description=" + description;
 
@@ -227,6 +235,11 @@ public class TimeDataActivity extends AppCompatActivity {
     public String removeTimeData(String date) throws IOException {
 
         description = description.replaceAll(" ", "%20");
+        description = description.replaceAll("&", "%26");
+        description = description.replaceAll("#", "%23");
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
 
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/remove?userName=" + displayName + "&date=" + date + "&hour=" + hour + "&minute=" + minute + "&duration=" + duration + "&description=" + description;
 

@@ -42,12 +42,16 @@ public class MainActivity extends Activity {
         int minute = Calendar.getInstance().get(Calendar.MINUTE);
         try {
             updateTimes(daysInYear, hour, minute);
-            String info = getAccountData(displayName);
-            JSONObject json = new JSONObject(info);
-            if (!json.getString("status").equals("notExist") && displayName != null)
-                startActivity(new Intent(MainActivity.this, AccountActivity.class));
-            else
+            if (displayName == null)
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            else {
+                String info = getAccountData(displayName);
+                JSONObject json = new JSONObject(info);
+                if (!json.getString("status").equals("notExist"))
+                    startActivity(new Intent(MainActivity.this, AccountActivity.class));
+                else
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -79,6 +83,10 @@ public class MainActivity extends Activity {
     }
 
     public String getAccountData(String displayName) throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
 
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?displayName=" + displayName).openConnection();
 

@@ -225,6 +225,11 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public String getFriendTimes(int date) throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/friends?userName=" + displayName + "&date=" + date;
 
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

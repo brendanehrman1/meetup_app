@@ -120,6 +120,10 @@ public class TimesActivity extends AppCompatActivity {
 
     public String getTimeData(String displayName, int date, int hour, int minute) throws IOException {
 
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+
         String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/get?userName=" + displayName + "&date=" + date + "&hour=" + hour + "&minute=" + minute;
 
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

@@ -104,6 +104,10 @@ public class AccountActivity extends AppCompatActivity {
 
     public static String removeUserData(String displayName) throws IOException {
 
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/remove?displayName=" + displayName).openConnection();
 
         connection.setRequestMethod("GET");
@@ -127,6 +131,10 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public static String getAccountData(String displayName) throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
 
         HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/user?displayName=" + displayName).openConnection();
 
