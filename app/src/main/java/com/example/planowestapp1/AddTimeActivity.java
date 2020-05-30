@@ -58,17 +58,17 @@ public class AddTimeActivity extends AppCompatActivity {
             Class<?> classForid = Class.forName("com.android.internal.R$id");
             Field fieldHr = classForid.getField("hour");
             NumberPicker mHourPicker = (NumberPicker) durationPicker.findViewById(fieldHr.getInt(null));
-            mHourPicker.setWrapSelectorWheel(false);
+            //mHourPicker.setWrapSelectorWheel(false);
             Field fieldMin = classForid.getField("minute");
             NumberPicker mMinutePicker = (NumberPicker) durationPicker.findViewById(fieldMin.getInt(null));
-            mMinutePicker.setMinValue(1);
+            mMinutePicker.setMinValue(0);
             mMinutePicker.setMaxValue(3);
             ArrayList<String> mDisplayedValuesMin = new ArrayList<String>();
-            for (int i = 15; i < 60; i += 15) {
+            for (int i = 0; i < 60; i += 15) {
                 mDisplayedValuesMin.add(String.format("%02d", i));
             }
             mMinutePicker.setDisplayedValues(mDisplayedValuesMin.toArray(new String[0]));
-            mMinutePicker.setWrapSelectorWheel(false);
+            //mMinutePicker.setWrapSelectorWheel(false);
             mMinutePicker = (NumberPicker) timePicker.findViewById(fieldMin.getInt(null));
             mMinutePicker.setMaxValue(3);
             mDisplayedValuesMin = new ArrayList<String>();
@@ -76,7 +76,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 mDisplayedValuesMin.add(String.format("%02d", i));
             }
             mMinutePicker.setDisplayedValues(mDisplayedValuesMin.toArray(new String[0]));
-            mMinutePicker.setWrapSelectorWheel(false);
+            //mMinutePicker.setWrapSelectorWheel(false);
 
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
 

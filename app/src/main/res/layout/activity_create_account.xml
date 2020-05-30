@@ -16,6 +16,7 @@
         android:background="@drawable/rightbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nACCOUNT"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +30,7 @@
         android:background="@drawable/leftbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nFRIENDS"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +45,7 @@
         android:background="@drawable/centerrightbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nMY TIMES"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,6 +60,7 @@
         android:background="@drawable/centerleftbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nCALENDAR"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +72,7 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
+        android:textColor="#CA054D"
         android:text="\n\n\n\n\n\nMEET UP"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
@@ -81,7 +86,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="504dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +96,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="504dp"
         android:layout_marginEnd="60dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

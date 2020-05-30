@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFF2F1"
     tools:context=".AccountActivity">
 
     <TextView
@@ -17,6 +18,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToAccount"
         android:text="\n\n\n\n\n\nACCOUNT"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToFriends"
         android:text="\n\n\n\n\n\nFRIENDS"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +49,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToTimes"
         android:text="\n\n\n\n\n\nMY TIMES"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +65,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToCalendar"
         android:text="\n\n\n\n\n\nCALENDAR"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,6 +77,7 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
+        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
         android:textSize="10sp"
@@ -86,7 +92,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="504dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +102,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="504dp"
         android:layout_marginEnd="60dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,6 +153,7 @@
         android:layout_marginTop="84dp"
         android:gravity="center"
         android:textSize="20sp"
+        android:textColor="#5D576B"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="132dp" />
 
@@ -162,6 +169,25 @@
         android:paddingTop="16dp"
         android:text="                           LOG OUT"
         android:textAlignment="textStart"
+        android:textColor="#5D576B"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/logoutBtn2"
+        android:layout_width="189dp"
+        android:layout_height="52dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="304dp"
+        android:layout_marginEnd="124dp"
+        android:background="@drawable/login_background"
+        android:onClick="changePassword"
+        android:paddingTop="10dp"
+        android:text="                        CHANGE \n                          PASSWORD"
+        android:textAlignment="textStart"
+        android:textColor="#5D576B"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -179,6 +205,7 @@
         android:paddingTop="10dp"
         android:text="                         REMOVE\n                            ACCOUNT"
         android:textAlignment="textStart"
+        android:textColor="#5D576B"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -30,6 +30,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToAccount"
         android:text="\n\n\n\n\n\nACCOUNT"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +45,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToFriends"
         android:text="\n\n\n\n\n\nFRIENDS"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +61,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToTimes"
         android:text="\n\n\n\n\n\nMY TIMES"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +77,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToCalendar"
         android:text="\n\n\n\n\n\nCALENDAR"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,6 +89,7 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
+        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
         android:textSize="10sp"
@@ -99,7 +104,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="504dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,7 +114,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="504dp"
         android:layout_marginEnd="60dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,6 +156,7 @@
         android:layout_marginTop="444dp"
         android:background="@drawable/rightline_background"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -215,11 +221,11 @@
 
     <TimePicker
         android:id="@+id/timePicker"
-        android:layout_width="264dp"
+        android:layout_width="wrap_content"
         android:layout_height="105dp"
         android:layout_marginTop="10dp"
-        android:timePickerMode="spinner"
         android:descendantFocusability="blocksDescendants"
+        android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -235,11 +241,11 @@
 
     <TimePicker
         android:id="@+id/durationPicker"
-        android:layout_width="260dp"
+        android:layout_width="wrap_content"
         android:layout_height="77dp"
-        android:timePickerMode="spinner"
         android:descendantFocusability="blocksDescendants"
         android:theme="@style/time_picker"
+        android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />

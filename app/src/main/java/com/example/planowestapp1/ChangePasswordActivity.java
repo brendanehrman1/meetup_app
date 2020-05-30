@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -19,17 +20,20 @@ import java.util.Scanner;
 
 import static com.example.planowestapp1.MainActivity.PREF_NAME;
 
-public class AccountActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
+
+    private EditText passInput;
+    private EditText passConfInput;
+    private TextView greetDisplay;
+    private TextView statusDisplay;
 
     private String displayName;
     private String username;
-    private String password;
-    private TextView greetDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_change_password);
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -44,32 +48,30 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void update() {
+        passInput = (EditText) findViewById(R.id.passInput);
+        passConfInput = (EditText) findViewById(R.id.passConfInput);
         greetDisplay = (TextView) findViewById(R.id.greetDisplay);
+        statusDisplay = (TextView) findViewById(R.id.statusDisplay);
         String buildString = "";
         buildString += "Hello " + displayName + "!\n";
         buildString += "Here is your information:\n\n";
         buildString += "Display Name: " + displayName + "\n";
         buildString += "Username: " + username + "\n";
-        buildString += "Password: " + password + "\n";
         greetDisplay.setText(buildString);
     }
 
-    public void logout(View v) throws IOException {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("NAME");
-        editor.apply();
-        startActivity(new Intent(AccountActivity.this, LoginActivity.class));
-    }
-
-    public void removeAccount(View v) throws IOException, JSONException {
-        greetDisplay = (TextView) findViewById(R.id.greetDisplay);
-        String info = removeUserData(displayName);
-        JSONObject json = new JSONObject(info);
-        if (json.getString("status").equals("notExist")) {
-            greetDisplay.setText("ERROR");
+    public void changePassword(View v) throws IOException, JSONException {
+        String password = passInput.getText().toString();
+        String passConf = passConfInput.getText().toString();
+        if (!password.equals(passConf)) {
+            statusDisplay.setText("Sorry, your new password and confirmation password must be the same. Please try again.");
         } else {
-            logout(null);
+            String status = changePassword(displayName, password);
+            if (status.equals("otherUser")) {
+                statusDisplay.setText("Sorry, another user has the same username and password. Please try again.");
+            } else {
+                startActivity(new Intent(ChangePasswordActivity.this, AccountActivity.class));
+            }
         }
     }
 
@@ -79,40 +81,38 @@ public class AccountActivity extends AppCompatActivity {
         String info = getAccountData(displayName);
         JSONObject json = new JSONObject(info);
         username = json.getString("username");
-        password = json.getString("password");
     }
 
     public void goToAccount(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, AccountActivity.class));
+        startActivity(new Intent(ChangePasswordActivity.this, AccountActivity.class));
     }
 
     public void goToTimes(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, TimesActivity.class));
+        startActivity(new Intent(ChangePasswordActivity.this, TimesActivity.class));
     }
 
     public void goToCalendar(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, CalendarActivity.class));
+        startActivity(new Intent(ChangePasswordActivity.this, CalendarActivity.class));
     }
 
     public void goToFriends(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, FriendActivity.class));
+        startActivity(new Intent(ChangePasswordActivity.this, FriendActivity.class));
     }
 
     public void goToAddTime(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, AddTimeActivity.class));
+        startActivity(new Intent(ChangePasswordActivity.this, AddTimeActivity.class));
     }
 
-    public void changePassword(View v) throws IOException {
-        startActivity(new Intent(AccountActivity.this, ChangePasswordActivity.class));
-    }
-
-    public static String removeUserData(String displayName) throws IOException {
+    public static String changePassword(String displayName, String newPass) throws IOException {
 
         displayName = displayName.replaceAll(" ", "%20");
         displayName = displayName.replaceAll("&", "%26");
         displayName = displayName.replaceAll("#", "%23");
+        newPass = newPass.replaceAll(" ", "%20");
+        newPass = newPass.replaceAll("&", "%26");
+        newPass = newPass.replaceAll("#", "%23");
 
-        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/remove?displayName=" + displayName).openConnection();
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/login/mod?displayName=" + displayName + "&password=" + newPass).openConnection();
 
         connection.setRequestMethod("GET");
 

@@ -71,6 +71,7 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
+            android:textColor="#5D576B"
             android:rotation="-90"
             android:text="FRIENDS"
             android:textSize="10sp" />
@@ -95,6 +96,7 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
+            android:textColor="#5D576B"
             android:rotation="-90"
             android:text="FRIEND REQUESTS"
             android:textSize="10sp" />
@@ -119,6 +121,7 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
+            android:textColor="#5D576B"
             android:rotation="-90"
             android:text="MY REQUESTS"
             android:textSize="10sp" />
@@ -135,6 +138,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToAccount"
         android:text="\n\n\n\n\n\nACCOUNT"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -149,6 +153,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToFriends"
         android:text="\n\n\n\n\n\nFRIENDS"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -164,6 +169,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToTimes"
         android:text="\n\n\n\n\n\nMY TIMES"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -179,6 +185,7 @@
         android:gravity="center_horizontal"
         android:onClick="goToCalendar"
         android:text="\n\n\n\n\n\nCALENDAR"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -190,6 +197,7 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
+        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
         android:textSize="10sp"
@@ -204,7 +212,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="504dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,7 +222,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="504dp"
         android:layout_marginEnd="60dp"
-        android:background="@android:color/black"
+        android:background="#5D576B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

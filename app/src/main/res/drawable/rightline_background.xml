@@ -11,7 +11,7 @@
                 android:top="1dip">
                 <stroke
                     android:width="2dp"
-                    android:color="#000000"/>
+                    android:color="#5D576B"/>
             </shape>
         </rotate>
     </item>
