@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/buttonColor"
     tools:context=".TimesActivity">
+
+    <TextView
+        android:id="@+id/timeDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/tabColor"
+        android:gravity="center|center_horizontal"
+        android:text="My Times"
+        android:textColor="@color/darkBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/statusDisplay"
@@ -84,9 +99,9 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -159,6 +174,6 @@
         android:layout_height="405dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/timeDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

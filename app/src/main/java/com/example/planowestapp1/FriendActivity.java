@@ -102,7 +102,9 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     public void addFriend(View v) throws IOException {
-        startActivity(new Intent(FriendActivity.this, AddFriendActivity.class));
+        Intent intent = new Intent(FriendActivity.this, AddFriendActivity.class);
+        intent.putExtra("TAB", tab);
+        startActivity(intent);
     }
 
     public void goToAddTime(View v) throws IOException {

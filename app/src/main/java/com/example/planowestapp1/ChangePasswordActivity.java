@@ -22,13 +22,16 @@ import static com.example.planowestapp1.MainActivity.PREF_NAME;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-    private EditText passInput;
-    private EditText passConfInput;
-    private TextView greetDisplay;
-    private TextView statusDisplay;
-
     private String displayName;
     private String username;
+    private String password;
+    private TextView statusDisplay;
+    private TextView displayNameDisplay;
+    private TextView usernameDisplay;
+    private TextView passwordDisplay;
+    private EditText passInput;
+    private EditText passConfInput;
+    private View wrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,31 +51,43 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     public void update() {
-        passInput = (EditText) findViewById(R.id.passInput);
-        passConfInput = (EditText) findViewById(R.id.passConfInput);
-        greetDisplay = (TextView) findViewById(R.id.greetDisplay);
+        displayNameDisplay = (TextView) findViewById(R.id.displayNameBelow);
+        usernameDisplay = (TextView) findViewById(R.id.usernameBelow);
+        passwordDisplay = (TextView) findViewById(R.id.passwordBelow);
+        passInput = (EditText) findViewById(R.id.password);
+        passConfInput = (EditText) findViewById(R.id.confPass);
         statusDisplay = (TextView) findViewById(R.id.statusDisplay);
-        String buildString = "";
-        buildString += "Hello " + displayName + "!\n";
-        buildString += "Here is your information:\n\n";
-        buildString += "Display Name: " + displayName + "\n";
-        buildString += "Username: " + username + "\n";
-        greetDisplay.setText(buildString);
+        wrapper = (View) findViewById(R.id.wrapper);
+        displayNameDisplay.setText(displayName);
+        usernameDisplay.setText(username);
+        passwordDisplay.setText(password);
     }
 
     public void changePassword(View v) throws IOException, JSONException {
         String password = passInput.getText().toString();
         String passConf = passConfInput.getText().toString();
-        if (!password.equals(passConf)) {
+        if (password.length() == 0 || passConf.length() == 0) {
+            wrapper.getLayoutParams().height = 570;
+            wrapper.requestLayout();
+            statusDisplay.setText("Sorry, you must enter and confirm a new password for your account. Please try again.");
+        } else if (!password.equals(passConf)) {
+            wrapper.getLayoutParams().height = 570;
+            wrapper.requestLayout();
             statusDisplay.setText("Sorry, your new password and confirmation password must be the same. Please try again.");
         } else {
             String status = changePassword(displayName, password);
             if (status.equals("otherUser")) {
+                wrapper.getLayoutParams().height = 570;
+                wrapper.requestLayout();
                 statusDisplay.setText("Sorry, another user has the same username and password. Please try again.");
             } else {
                 startActivity(new Intent(ChangePasswordActivity.this, AccountActivity.class));
             }
         }
+    }
+
+    public void goBack(View v) {
+        startActivity(new Intent(ChangePasswordActivity.this, AccountActivity.class));
     }
 
     public void loadAccountData() throws IOException, JSONException {
@@ -81,6 +96,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String info = getAccountData(displayName);
         JSONObject json = new JSONObject(info);
         username = json.getString("username");
+        password = json.getString("password");
     }
 
     public void goToAccount(View v) throws IOException {

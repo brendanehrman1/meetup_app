@@ -18,6 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import static com.example.planowestapp1.MainActivity.PREF_NAME;
+
 public class CreateAccountActivity extends AppCompatActivity {
 
     private EditText displayNameInput;
@@ -25,6 +27,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText passwordInput;
     private EditText confPassInput;
     private TextView status;
+    private View wrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +42,17 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+    public void goBack(View v) {
+        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+    }
+
     public void confirmAccount(View v) throws IOException, JSONException {
         displayNameInput = (EditText) findViewById(R.id.displayName);
         usernameInput = (EditText) findViewById(R.id.username);
         passwordInput = (EditText) findViewById(R.id.password);
         confPassInput = (EditText) findViewById(R.id.confPass);
         status = (TextView) findViewById(R.id.statusDisplay);
+        wrapper = (View) findViewById(R.id.wrapper);
         if (!passwordInput.getText().toString().equals(confPassInput.getText().toString())) {
             status.setText("Sorry, your password and confirmation password do not match. Please try again.");
         } else {
@@ -52,17 +60,27 @@ public class CreateAccountActivity extends AppCompatActivity {
             String usernameStr = usernameInput.getText().toString();
             String passwordStr = passwordInput.getText().toString();
             if (displayNameStr.length() == 0 || usernameStr.length() == 0 || passwordStr.length() == 0) {
+                wrapper.getLayoutParams().height = 900;
+                wrapper.requestLayout();
                 status.setText("Sorry, you must enter your display name, username, and password before creating an account. Please try again.");
                 return;
             }
             String info = getAccountData(displayNameStr, usernameStr, passwordStr);
             JSONObject json = new JSONObject(info);
             if (json.getString("status").equals("displayName")) {
+                wrapper.getLayoutParams().height = 910;
+                wrapper.requestLayout();
                 status.setText("Sorry, your display name is already taken. Please try again.");
             } else if (json.getString("status").equals("userPass")) {
+                wrapper.getLayoutParams().height = 910;
+                wrapper.requestLayout();
                 status.setText("Sorry, another account has the same username and password. Please try again.");
             } else {
-                startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+                SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("NAME", displayNameStr);
+                editor.apply();
+                startActivity(new Intent(CreateAccountActivity.this, AccountActivity.class));
             }
         }
     }

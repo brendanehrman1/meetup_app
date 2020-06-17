@@ -4,90 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/buttonColor"
     tools:context=".CalendarActivity">
 
     <TextView
-        android:id="@+id/dayDisplay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/calendarDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/tabColor"
         android:gravity="center|center_horizontal"
+        android:text="Calendar"
+        android:textColor="@color/darkBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/todayBtn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/todayBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToToday"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dayDisplayBar"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:background="@color/darkBackground"
+        app:layout_constraintTop_toBottomOf="@+id/calendarDisplay">
 
         <TextView
-            android:id="@+id/todayTxt"
+            android:id="@+id/dayDisplay"
             android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
-            android:rotation="-90"
-            android:text="TODAY"
-            android:textSize="10sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/tomorrowBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="175dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToTomorrow"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/buttonColor"
+            android:gravity="center"
+            android:text="Day"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tomorrowTxt"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
-            android:rotation="-90"
-            android:text="TOMORROW"
-            android:textSize="10sp" />
+            android:id="@+id/timeDisplay"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/buttonColor"
+            android:gravity="center"
+            android:text="Time"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayDisplay" />
 
-    </LinearLayout>
+        <View
+            android:id="@+id/rightArrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/arrow_background"
+            android:onClick="goRight"
+            android:rotation="90"
+            app:layout_constraintStart_toEndOf="@+id/dayDisplay"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/inTwoDaysBtn"
-        android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="350dp"
-        android:layout_weight="1"
-        android:background="@drawable/friendborder_background"
-        android:gravity="center"
-        android:onClick="goToInTwoDays"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <View
+            android:id="@+id/leftArrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/arrow_background"
+            android:onClick="goLeft"
+            android:rotation="270"
+            app:layout_constraintEnd_toStartOf="@+id/dayDisplay"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/inTwoDaysTxt"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
-            android:rotation="-90"
-            android:text="In Two Days"
-            android:textSize="10sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    <SeekBar
+        android:id="@+id/scrollBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:progressDrawable="@drawable/seekbar_background"
+        android:thumb="@drawable/seek_thumb"
+        app:layout_constraintTop_toBottomOf="@+id/dayDisplayBar" />
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -158,9 +156,9 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -227,51 +225,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/rightArrow"
-        android:layout_width="50dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/arrow_background"
-        android:onClick="moveRight"
-        android:rotation="90"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timeDisplay"
-        app:layout_constraintTop_toBottomOf="@+id/dayDisplay" />
-
-    <View
-        android:id="@+id/leftArrow"
-        android:layout_width="50dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/arrow_background"
-        android:onClick="moveLeft"
-        android:rotation="270"
-        app:layout_constraintEnd_toStartOf="@+id/timeDisplay"
-        app:layout_constraintStart_toEndOf="@+id/todayBtn"
-        app:layout_constraintTop_toBottomOf="@+id/dayDisplay" />
-
     <ListView
         android:id="@+id/friendTimeList"
-        android:layout_width="317dp"
-        android:layout_height="375dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginBottom="21dp"
-        app:layout_constraintBottom_toTopOf="@+id/centerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/timeDisplay">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollBar">
 
     </ListView>
-
-    <TextView
-        android:id="@+id/timeDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="00:00 - 00:00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/todayBtn"
-        app:layout_constraintTop_toBottomOf="@+id/dayDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

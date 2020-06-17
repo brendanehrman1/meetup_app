@@ -4,38 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/buttonColor"
     tools:context=".FriendActivity">
 
     <TextView
-        android:id="@+id/statusDisplay"
+        android:id="@+id/friendDisplay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_height="30dp"
+        android:background="@color/tabColor"
         android:gravity="center|center_horizontal"
+        android:text="Friends"
+        android:textColor="@color/darkBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendList" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statusDisplay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center|center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/centerBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn" />
 
     <LinearLayout
         android:id="@+id/friendsBtn"
         android:layout_width="41dp"
-        android:layout_height="175dp"
+        android:layout_height="165dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:onClick="goToFriends"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/friendDisplay">
 
         <TextView
             android:id="@+id/friendsTxt"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
             android:rotation="-90"
-            android:text="FRIENDS"
+            android:text="MY FRIENDS"
+            android:textColor="@android:color/white"
             android:textSize="10sp" />
 
     </LinearLayout>
@@ -43,24 +58,23 @@
     <LinearLayout
         android:id="@+id/requestsBtn"
         android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="175dp"
+        android:layout_height="165dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:onClick="goToFriendRequests"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/friendsBtn">
 
         <TextView
             android:id="@+id/requestsTxt"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
             android:rotation="-90"
             android:text="FRIEND REQUESTS"
+            android:textColor="@android:color/white"
             android:textSize="10sp" />
 
     </LinearLayout>
@@ -68,24 +82,23 @@
     <LinearLayout
         android:id="@+id/potFriendsBtn"
         android:layout_width="41dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="350dp"
+        android:layout_height="165dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:onClick="goToMyRequests"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/requestsBtn">
 
         <TextView
             android:id="@+id/potFriendsTxt"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
-            android:textColor="#5D576B"
             android:rotation="-90"
             android:text="MY REQUESTS"
+            android:textColor="@android:color/white"
             android:textSize="10sp" />
 
     </LinearLayout>
@@ -159,9 +172,9 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -231,11 +244,10 @@
     <ListView
         android:id="@+id/friendList"
         android:layout_width="317dp"
-        android:layout_height="375dp"
-        android:layout_marginTop="1dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/requestsBtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/friendDisplay" />
 
     <View
         android:id="@+id/divider"
@@ -248,22 +260,18 @@
 
     <TextView
         android:id="@+id/addFriendBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="396dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/login_background"
+        android:layout_marginTop="430dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/addfriend_background"
         android:onClick="addFriend"
         android:paddingTop="10dp"
-        android:text="                           ADD \n                             FRIEND"
         android:textAlignment="textStart"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

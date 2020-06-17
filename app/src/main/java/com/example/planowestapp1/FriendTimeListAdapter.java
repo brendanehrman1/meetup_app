@@ -43,8 +43,8 @@ public class FriendTimeListAdapter extends ArrayAdapter<TimeEntry> {
         if (displayName.equals(name))
             friendNameDisplay.setText("Me");
         else
-            friendNameDisplay.setText("Friend: " + name);
-        friendDescDisplay.setText("Event: " + description);
+            friendNameDisplay.setText(name);
+        friendDescDisplay.setText(description);
 
         return convertView;
     }

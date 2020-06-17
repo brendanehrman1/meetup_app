@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buttonColor"
-    tools:context=".ChangePasswordActivity">
+    tools:context=".ModTimeActivity">
 
     <TextView
-        android:id="@+id/accountDisplay"
+        android:id="@+id/timeDisplayBelow"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/tabColor"
         android:gravity="center|center_horizontal"
-        android:text="My Account"
+        android:text="My Times"
         android:textColor="@color/darkBackground"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -25,202 +24,195 @@
     <ScrollView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="435dp"
+        android:layout_height="430dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountDisplay">
+        app:layout_constraintTop_toBottomOf="@+id/timeDisplayBelow">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/buttonColor"
-            android:orientation="vertical">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:background="@color/darkBackground">
-
-                <TextView
-                    android:id="@+id/statusDisplayBelow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/changePassBtn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordBelow" />
-
-                <TextView
-                    android:id="@+id/changePassBtn"
-                    android:layout_width="248dp"
-                    android:layout_height="33dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@color/lightPop"
-                    android:gravity="center"
-                    android:onClick="changePassword"
-                    android:text="CHANGE PASSWORD"
-                    android:textColor="@color/popColor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/infoDisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Account Information"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/displayNameDisplayBelow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="DISPLAY NAME"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/displayNameBelow"
-                    app:layout_constraintStart_toStartOf="@+id/displayNameBelow" />
-
-                <TextView
-                    android:id="@+id/displayNameBelow"
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/buttonColor"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/infoDisplay" />
-
-                <TextView
-                    android:id="@+id/usernameDisplayBelow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="USERNAME"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/usernameBelow"
-                    app:layout_constraintStart_toStartOf="@+id/usernameBelow" />
-
-                <TextView
-                    android:id="@+id/usernameBelow"
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/buttonColor"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/displayNameBelow" />
-
-                <TextView
-                    android:id="@+id/passwordDisplayBelow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="PASSWORD"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/passwordBelow"
-                    app:layout_constraintStart_toStartOf="@+id/passwordBelow" />
-
-                <TextView
-                    android:id="@+id/passwordBelow"
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/buttonColor"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/usernameBelow" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/darkBackground">
-
-                <TextView
-                    android:id="@+id/logoutBtn"
-                    android:layout_width="248dp"
-                    android:layout_height="33dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@color/lightPop"
-                    android:gravity="center"
-                    android:text="LOGOUT"
-                    android:textColor="@color/popColor"
-                    app:layout_constraintBottom_toTopOf="@+id/removeAccBtn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/removeAccBtn"
-                    android:layout_width="248dp"
-                    android:layout_height="33dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/lightPop"
-                    android:gravity="center"
-                    android:text="REMOVE ACCOUNT"
-                    android:textColor="@color/popColor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/managementDisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Account Management"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeDisplayBelow">
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="530dp"
+                android:background="@color/darkBackground">
+
+                <TextView
+                    android:id="@+id/removeTimeBtn"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/lightPop"
+                    android:gravity="center"
+                    android:text="REMOVE TIME"
+                    android:textColor="@color/popColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/changeTimeBtn"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/lightPop"
+                    android:gravity="center"
+                    android:text="CHANGE TIME"
+                    android:textColor="@color/popColor"
+                    app:layout_constraintBottom_toTopOf="@+id/removeTimeBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/dayDisplayBelow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="DAY"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/dayBelow"
+                    app:layout_constraintStart_toStartOf="@+id/dayBelow" />
+
+                <TextView
+                    android:id="@+id/dayBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/startTimeDisplayBelow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="START TIME"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/startTimeBelow"
+                    app:layout_constraintStart_toStartOf="@+id/startTimeBelow" />
+
+                <TextView
+                    android:id="@+id/startTimeBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dayBelow" />
+
+                <TextView
+                    android:id="@+id/endTimeDisplayBelow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="END TIME"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/endTimeBelow"
+                    app:layout_constraintStart_toStartOf="@+id/endTimeBelow" />
+
+                <TextView
+                    android:id="@+id/durationDisplayBelow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="DURATION"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/durationBelow"
+                    app:layout_constraintStart_toStartOf="@+id/endTimeBelow" />
+
+                <TextView
+                    android:id="@+id/descriptionDisplayBelow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="DESCRIPTION"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/descriptionBelow"
+                    app:layout_constraintStart_toStartOf="@+id/endTimeBelow" />
+
+                <TextView
+                    android:id="@+id/endTimeBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startTimeBelow" />
+
+                <TextView
+                    android:id="@+id/durationBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/endTimeBelow" />
+
+                <TextView
+                    android:id="@+id/descriptionBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/durationBelow" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
     </ScrollView>
 
     <TextView
@@ -231,7 +223,6 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/rightbutton_background"
         android:gravity="center_horizontal"
-        android:onClick="goToAccount"
         android:text="\n\n\n\n\n\nACCOUNT"
         android:textColor="#CA054D"
         android:textSize="10sp"
@@ -246,7 +237,6 @@
         android:layout_marginTop="485dp"
         android:background="@drawable/leftbutton_background"
         android:gravity="center_horizontal"
-        android:onClick="goToFriends"
         android:text="\n\n\n\n\n\nFRIENDS"
         android:textColor="#CA054D"
         android:textSize="10sp"
@@ -262,7 +252,6 @@
         android:layout_marginEnd="60dp"
         android:background="@drawable/centerrightbutton_background"
         android:gravity="center_horizontal"
-        android:onClick="goToTimes"
         android:text="\n\n\n\n\n\nMY TIMES"
         android:textColor="#CA054D"
         android:textSize="10sp"
@@ -278,7 +267,6 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerleftbutton_background"
         android:gravity="center_horizontal"
-        android:onClick="goToCalendar"
         android:text="\n\n\n\n\n\nCALENDAR"
         android:textColor="#CA054D"
         android:textSize="10sp"
@@ -292,7 +280,6 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
         android:textColor="#CA054D"
         android:textSize="10sp"
@@ -362,15 +349,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/breakLine"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@drawable/horizontalline_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountDisplay" />
-
-    <View
         android:id="@+id/tint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -387,11 +365,130 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/changePasswordDisplay"
+        android:id="@+id/statusDisplay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/continueBtn"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <Button
+        android:id="@+id/continueBtn"
+        android:layout_width="128dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lightPop"
+        android:onClick="next"
+        android:text="NEXT"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper" />
+
+    <Button
+        android:id="@+id/previousBtn"
+        android:layout_width="128dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lightPop"
+        android:onClick="previous"
+        android:text="BACK"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper" />
+
+    <Button
+        android:id="@+id/todayBtn"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/lightPop"
+        android:onClick="setDay"
+        android:text="TODAY"
+        android:textColor="@color/popColor"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/changeTimeDisplay" />
+
+    <Button
+        android:id="@+id/tomorrowBtn"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/lightPop"
+        android:onClick="setDay"
+        android:text="TOMORROW"
+        android:textColor="@color/popColor"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/todayBtn" />
+
+    <Button
+        android:id="@+id/inTwoDaysBtn"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/lightPop"
+        android:onClick="setDay"
+        android:text="IN TWO DAYS"
+        android:textColor="@color/popColor"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/tomorrowBtn" />
+
+    <TimePicker
+        android:id="@+id/startTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="105dp"
+        android:layout_marginTop="25dp"
+        android:descendantFocusability="blocksDescendants"
+        android:theme="@style/time_picker"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeTimeDisplay" />
+
+    <TimePicker
+        android:id="@+id/durationPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="105dp"
+        android:layout_marginTop="25dp"
+        android:descendantFocusability="blocksDescendants"
+        android:theme="@style/time_picker"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeTimeDisplay" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="270dp"
+        android:layout_height="100dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="Name"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/previousBtn"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/changeTimeDisplay" />
+
+    <TextView
+        android:id="@+id/changeTimeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Change Password"
+        android:layout_marginTop="10dp"
+        android:text="Change Time"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -400,83 +497,17 @@
         app:layout_constraintTop_toTopOf="@+id/wrapper" />
 
     <TextView
-        android:id="@+id/statusDisplay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
-        app:layout_constraintEnd_toEndOf="@+id/wrapper"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/confPass" />
-
-    <TextView
-        android:id="@+id/passwordDisplay"
+        android:id="@+id/actionDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="NEW PASSWORD"
+        android:layout_marginTop="5dp"
+        android:text="Create Friend Request"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password" />
-
-    <Button
-        android:id="@+id/confirmBtn"
-        android:layout_width="270dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/lightPop"
-        android:onClick="changePassword"
-        android:text="CHANGE PASSWORD"
-        android:textColor="@color/popColor"
-        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
-        app:layout_constraintEnd_toEndOf="@+id/confPass"
-        app:layout_constraintStart_toStartOf="@+id/confPass" />
-
-    <TextView
-        android:id="@+id/confPassDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="CONFIRM PASSWORD"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/confPass"
-        app:layout_constraintStart_toStartOf="@+id/confPass" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="250dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="35dp"
-        android:background="@color/buttonColor"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/wrapper"
         app:layout_constraintStart_toStartOf="@+id/wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/changePasswordDisplay" />
-
-    <EditText
-        android:id="@+id/confPass"
-        android:layout_width="250dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/buttonColor"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/wrapper"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@+id/wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/changeTimeDisplay" />
 
     <TextView
         android:id="@+id/backBtn"
@@ -485,11 +516,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:onClick="goBack"
-        android:text="Back"
+        android:text="Exit"
         android:textColor="@color/popColor"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/wrapper"
         app:layout_constraintTop_toTopOf="@+id/wrapper" />
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

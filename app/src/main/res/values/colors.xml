@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="darkBackground">#5D576B</color>
+    <color name="popColor">#CA054D</color>
+    <color name="buttonColor">#3A3742</color>
+    <color name="lightPop">#F7567C</color>
+    <color name="tabColor">#8C8A93</color>
+    <color name="tintColor">#66000000</color>
 </resources>

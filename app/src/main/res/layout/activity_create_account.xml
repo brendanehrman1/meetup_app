@@ -5,7 +5,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/city_background"
     tools:context=".CreateAccountActivity">
+
+    <View
+        android:id="@+id/wrapper"
+        android:layout_width="332dp"
+        android:layout_height="420dp"
+        android:background="@color/darkBackground"
+        app:layout_constraintBottom_toTopOf="@+id/centerBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statusDisplay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/confPass" />
+
+    <TextView
+        android:id="@+id/displayNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="DISPLAY NAME"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/displayName"
+        app:layout_constraintStart_toStartOf="@+id/displayName" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lightPop"
+        android:onClick="confirmAccount"
+        android:text="Confirm"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username" />
+
+    <TextView
+        android:id="@+id/usernameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="USERNAME"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username" />
+
+    <TextView
+        android:id="@+id/passwordDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="PASSWORD"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password" />
+
+    <TextView
+        android:id="@+id/confirmPassDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="CONFIRM PASSWORD"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/confPass"
+        app:layout_constraintStart_toStartOf="@+id/confPass" />
+
+    <EditText
+        android:id="@+id/displayName"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/createAccDisplay" />
+
+    <TextView
+        android:id="@+id/createAccDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Create Account"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toTopOf="@+id/wrapper" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/displayName" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <EditText
+        android:id="@+id/confPass"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -72,8 +226,8 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -140,78 +294,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/displayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="68dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Display Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayName" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
-
-    <EditText
-        android:id="@+id/confPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Confirm Password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
     <TextView
-        android:id="@+id/statusDisplay"
-        android:layout_width="match_parent"
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/createAcc"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="420dp"
-        android:layout_marginEnd="180dp"
-        android:background="@drawable/login_background"
-        android:onClick="confirmAccount"
-        android:paddingTop="16dp"
-        android:text="                          CONFIRM"
-        android:textAlignment="textStart"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="goBack"
+        android:text="Back"
+        android:textColor="@color/popColor"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toTopOf="@+id/wrapper" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,27 +23,28 @@ import java.util.Scanner;
 
 import static com.example.planowestapp1.MainActivity.PREF_NAME;
 
-public class AddFriendActivity extends AppCompatActivity {
+public class FriendRequestActivity extends AppCompatActivity {
 
     private ListView listView;
-    private EditText displayNameInput;
     private EditText nicknameInput;
     private TextView statusDisplay;
     private String tab;
     private View wrapper;
 
     private String displayName;
+    private String friendName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_friend);
+        setContentView(R.layout.activity_friend_request);
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
         loadData();
+        wrapper = (View) findViewById(R.id.wrapper);
         listView = (ListView) findViewById(R.id.friendList);
         statusDisplay = (TextView) findViewById(R.id.statusDisplay);
         try {
@@ -64,41 +64,6 @@ public class AddFriendActivity extends AppCompatActivity {
         }
     }
 
-    public void sendFriendRequest(View v) throws IOException, JSONException {
-        String displayNameInputStr = displayNameInput.getText().toString();
-        String nicknameInputStr = nicknameInput.getText().toString();
-        if (displayNameInputStr.length() == 0 || nicknameInputStr.length() == 0) {
-            wrapper.getLayoutParams().height = 600;
-            wrapper.requestLayout();
-            statusDisplay.setText("Sorry, you must enter your friend's display name and the nickname that you would like them to be displayed as. Please try again.");
-            return;
-        }
-        String info = getRequestData(displayNameInputStr, nicknameInputStr);
-        JSONObject json = new JSONObject(info);
-        String status = json.getString("status");
-        if (status.equals("friendNotExist")) {
-            wrapper.getLayoutParams().height = 600;
-            wrapper.requestLayout();
-            statusDisplay.setText("Sorry, your friend's display name does not exist. Please try again.");
-        } else if (status.equals("alreadyPending")) {
-            wrapper.getLayoutParams().height = 600;
-            wrapper.requestLayout();
-            statusDisplay.setText("Sorry, this friend either already exists or is currently pending. Please try again.");
-        } else if (status.equals("nicknameUsed")) {
-            wrapper.getLayoutParams().height = 600;
-            wrapper.requestLayout();
-            statusDisplay.setText("Sorry, you are already using this nickname for another friend. Please try again.");
-        } else {
-            startActivity(new Intent(AddFriendActivity.this, FriendActivity.class));
-        }
-    }
-
-    public void goBack(View v) {
-        Intent intent = new Intent(AddFriendActivity.this, FriendActivity.class);
-        intent.putExtra("TAB", tab);
-        startActivity(intent);
-    }
-
     public void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         displayName = sharedPreferences.getString("NAME", null);
@@ -107,12 +72,71 @@ public class AddFriendActivity extends AppCompatActivity {
             tab = "FRIENDS";
         else
             tab = extras.getString("TAB");
-        displayNameInput = (EditText) findViewById(R.id.displayName);
+        friendName = extras.getString("FRIEND_NAME");
         nicknameInput = (EditText) findViewById(R.id.nickname);
         wrapper = (View) findViewById(R.id.wrapper);
     }
 
-    public String getRequestData(String friendName, String nickname) throws IOException {
+    public void goBack(View v) {
+        Intent intent = new Intent(FriendRequestActivity.this, FriendActivity.class);
+        intent.putExtra("TAB", tab);
+        startActivity(intent);
+    }
+
+    public void deny(View v) throws IOException, JSONException {
+        removeFriendData();
+        startActivity(new Intent(FriendRequestActivity.this, FriendActivity.class));
+    }
+
+    public void approve(View v) throws IOException, JSONException {
+
+        String nicknameInputStr = nicknameInput.getText().toString();
+        if (nicknameInputStr.length() == 0) {
+            wrapper.getLayoutParams().height = 520;
+            wrapper.requestLayout();
+            statusDisplay.setText("Sorry, you must enter a nickname before proceeding. Please try again.");
+            return;
+        }
+        String info = approveData(nicknameInputStr);
+        JSONObject json = new JSONObject(info);
+        if (json.getString("status").equals("nicknameUsed")) {
+            wrapper.getLayoutParams().height = 520;
+            wrapper.requestLayout();
+            statusDisplay.setText("Sorry, you have already used that nickname for somebody else. Please try again.");
+        } else
+            startActivity(new Intent(FriendRequestActivity.this, FriendActivity.class));
+
+    }
+
+    public void removeFriendData() throws IOException {
+
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+        friendName = friendName.replaceAll(" ", "%20");
+        friendName = friendName.replaceAll("&", "%26");
+        friendName = friendName.replaceAll("#", "%23");
+
+        if (tab.equals("FRIENDS") || tab.equals("MY_REQUESTS")) {
+            String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/remove?userName=" + displayName + "&friendName=" + friendName;
+
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+            connection.setRequestMethod("GET");
+
+            connection.getResponseCode();
+        } else {
+            String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/remove?userName=" + friendName + "&friendName=" + displayName;
+
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+            connection.setRequestMethod("GET");
+
+            connection.getResponseCode();
+        }
+    }
+
+    public String approveData(String nickname) throws IOException {
 
         displayName = displayName.replaceAll(" ", "%20");
         displayName = displayName.replaceAll("&", "%26");
@@ -124,7 +148,17 @@ public class AddFriendActivity extends AppCompatActivity {
         nickname = nickname.replaceAll("&", "%26");
         nickname = nickname.replaceAll("#", "%23");
 
-        HttpURLConnection connection = (HttpURLConnection) new URL("http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/add?userName=" + displayName + "&friendName=" + friendName +  "&nickname=" + nickname).openConnection();
+        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/mod?userName=" + friendName + "&friendName=" + displayName + "&pending=0";
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+        connection.setRequestMethod("GET");
+
+        connection.getResponseCode();
+
+        url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/add?userName=" + displayName + "&friendName=" + friendName + "&nickname=" + nickname;
+
+        connection = (HttpURLConnection) new URL(url).openConnection();
 
         connection.setRequestMethod("GET");
 
@@ -142,7 +176,6 @@ public class AddFriendActivity extends AppCompatActivity {
             return response;
         }
 
-        // an error happened
         return null;
     }
 
@@ -180,4 +213,5 @@ public class AddFriendActivity extends AppCompatActivity {
         // an error happened
         return null;
     }
+
 }

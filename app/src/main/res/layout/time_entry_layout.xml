@@ -10,8 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
-        android:textColor="#5D576B"
-        android:text="Day" />
+        android:background="@color/buttonColor"
+        android:text="Day"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,34 +22,35 @@
         android:textColor="#5D576B"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/startTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/startTime"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="Start Time: " />
-
-            <TextView
-                android:id="@+id/endTime"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="End Time: " />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:gravity="center"
+            android:text="Start"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/descDisplay"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="50"
+            android:layout_weight="40"
             android:gravity="center"
-            android:text="Description" />
+            android:text="Description"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:gravity="center"
+            android:text="End"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

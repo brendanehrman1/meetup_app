@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -24,11 +26,12 @@ import static com.example.planowestapp1.MainActivity.PREF_NAME;
 
 public class FriendDataActivity extends AppCompatActivity {
 
-    private EditText nicknameInput;
-    private TextView negativeBtn;
-    private TextView positiveBtn;
-    private TextView friendInfoDisplay;
-    private TextView status;
+    private TextView removeFriendBtn;
+    private TextView changeNicknameBtn;
+    private TextView friendDisplay;
+    private View friendIcon;
+    private TextView displayNameDisplay;
+    private TextView nicknameDisplay;
 
     private String displayName;
     private String friendName;
@@ -49,42 +52,42 @@ public class FriendDataActivity extends AppCompatActivity {
     }
 
     public void setScreen() {
-        nicknameInput = (EditText) findViewById(R.id.nicknameInput);
-        negativeBtn = (TextView) findViewById(R.id.negativeBtn);
-        positiveBtn = (TextView) findViewById(R.id.positiveBtn);
-        friendInfoDisplay = (TextView) findViewById(R.id.friendInfoDisplay);
-        status = (TextView) findViewById(R.id.statusDisplay);
-        if (tab.equals("FRIENDS")) {
-            positiveBtn.setPadding(positiveBtn.getPaddingLeft(), 10, positiveBtn.getPaddingRight(), positiveBtn.getPaddingBottom());
-            positiveBtn.setText("                         CHANGE\n                          NICKNAME");
-            negativeBtn.setPadding(negativeBtn.getPaddingLeft(), 10, negativeBtn.getPaddingRight(), negativeBtn.getPaddingBottom());
-            negativeBtn.setText("                         REMOVE\n                            FRIEND");
-            String buildString = "";
-            buildString += "Here is your friend's information:\n\n";
-            buildString += "Display Name: " + friendName + "\n";
-            buildString += "Nickname: " + nickname + "\n";
-            friendInfoDisplay.setText(buildString);
-        } else if (tab.equals("FRIEND_REQUESTS")) {
-            positiveBtn.setPadding(positiveBtn.getPaddingLeft(), 30, positiveBtn.getPaddingRight(), positiveBtn.getPaddingBottom());
-            positiveBtn.setText("                         APPROVE");
-            negativeBtn.setPadding(negativeBtn.getPaddingLeft(), 30, negativeBtn.getPaddingRight(), negativeBtn.getPaddingBottom());
-            negativeBtn.setText("                             DENY");
-            String buildString = "";
-            buildString += "Somebody is inviting you to be their friend!\n\n";
-            buildString += "Display Name: " + friendName + "\n";
-            friendInfoDisplay.setText(buildString);
-
-        } else if (tab.equals("MY_REQUESTS")) {
-            positiveBtn.setPadding(positiveBtn.getPaddingLeft(), 10, positiveBtn.getPaddingRight(), positiveBtn.getPaddingBottom());
-            positiveBtn.setText("                         CHANGE\n                          NICKNAME");
-            negativeBtn.setPadding(negativeBtn.getPaddingLeft(), 10, negativeBtn.getPaddingRight(), negativeBtn.getPaddingBottom());
-            negativeBtn.setText("                         REMOVE\n                           REQUEST");
-            String buildString = "";
-            buildString += "Here is your current request:\n\n";
-            buildString += "Friend's Display Name: " + friendName + "\n";
-            buildString += "Friend's Nickname: " + nickname + "\n";
-            friendInfoDisplay.setText(buildString);
+        removeFriendBtn = (TextView) findViewById(R.id.removeFriendBtn);
+        changeNicknameBtn = (TextView) findViewById(R.id.changeNicknameBtn);
+        friendDisplay = (TextView) findViewById(R.id.friendName);
+        friendIcon = (View) findViewById(R.id.icon);
+        displayNameDisplay = (TextView) findViewById(R.id.displayName);
+        nicknameDisplay = (TextView) findViewById(R.id.nickname);
+        if (tab.equals("FRIEND_REQUESTS")) {
+            Intent intent = new Intent(FriendDataActivity.this, FriendRequestActivity.class);
+            intent.putExtra("FRIEND_NAME", friendName);
+            intent.putExtra("TAB", tab);
+            startActivity(intent);
+        } else {
+            changeNicknameBtn.setText("CHANGE NICKNAME");
+            removeFriendBtn.setText("REMOVE FRIEND");
+            if (tab.equals("MY_REQUESTS"))
+                removeFriendBtn.setText("REMOVE REQUEST");
+            displayNameDisplay.setText(friendName);
+            nicknameDisplay.setText(nickname);
+            friendDisplay.setText(nickname);
+            friendIcon.setBackgroundColor(Color.parseColor(stringToColour(friendName)));
         }
+    }
+
+    String stringToColour(String str) {
+        int hash = 0;
+        for (int i = 0; i < str.length(); i++) {
+            hash = (int)(str.charAt(i)) + ((hash << 5) - hash);
+        }
+        String colour = "#";
+        for (int i = 0; i < 3; i++) {
+            int value = (hash >> (i * 8)) & 0xFF;
+            String part = "00" + BigInteger.valueOf(value).toString(16);
+            System.out.println(part);
+            colour += part.substring(part.length() - 2);
+        }
+        return colour;
     }
 
     public void goToAccount(View v) throws IOException {
@@ -128,41 +131,16 @@ public class FriendDataActivity extends AppCompatActivity {
         tab = extras.getString("TAB");
     }
 
-    public void doPositive(View v) throws IOException, JSONException {
-        if (tab.equals("FRIENDS")) {
-            changeNickname();
-        } else if (tab.equals("FRIEND_REQUESTS")) {
-            approveRequest();
-        } else if (tab.equals("MY_REQUESTS")) {
-            changeNickname();
-        }
+    public void changeNickname(View v) throws IOException, JSONException {
+        Intent intent = new Intent(FriendDataActivity.this, ChangeNicknameActivity.class);
+        intent.putExtra("FRIEND_NAME", friendName);
+        intent.putExtra("NICKNAME", nickname);
+        intent.putExtra("TAB", tab);
+        startActivity(intent);
     }
 
-    public void doNegative(View v) throws IOException, JSONException {
-        removeFriend();
-    }
-
-    public void changeNickname() throws IOException, JSONException {
-        String nicknameInputStr = nicknameInput.getText().toString();
-        if (nicknameInputStr.length() == 0) {
-            status.setText("Sorry, you must enter a nickname before proceeding. Please try again.");
-            return;
-        }
-        String info = changeNicknameData(nicknameInputStr);
-        JSONObject json = new JSONObject(info);
-        if (json.getString("status").equals("nickname"))
-            status.setText("Sorry, you have already used that nickname for somebody else. Please try again.");
-        else
-            startActivity(new Intent(FriendDataActivity.this, FriendActivity.class));
-    }
-
-    public void removeFriend() throws IOException, JSONException {
+    public void removeFriend(View v) throws IOException, JSONException {
         removeFriendData();
-        startActivity(new Intent(FriendDataActivity.this, FriendActivity.class));
-    }
-
-    public void approveRequest() throws IOException, JSONException {
-        approveData(nicknameInput.getText().toString());
         startActivity(new Intent(FriendDataActivity.this, FriendActivity.class));
     }
 
@@ -192,70 +170,5 @@ public class FriendDataActivity extends AppCompatActivity {
 
             connection.getResponseCode();
         }
-    }
-
-    public void approveData(String nickname) throws IOException {
-
-        displayName = displayName.replaceAll(" ", "%20");
-        displayName = displayName.replaceAll("&", "%26");
-        displayName = displayName.replaceAll("#", "%23");
-        friendName = friendName.replaceAll(" ", "%20");
-        friendName = friendName.replaceAll("&", "%26");
-        friendName = friendName.replaceAll("#", "%23");
-        nickname = nickname.replaceAll(" ", "%20");
-        nickname = nickname.replaceAll("&", "%26");
-        nickname = nickname.replaceAll("#", "%23");
-
-        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/mod?userName=" + friendName + "&friendName=" + displayName + "&pending=0";
-
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-
-        connection.setRequestMethod("GET");
-
-        connection.getResponseCode();
-
-        url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/add?userName=" + displayName + "&friendName=" + friendName + "&nickname=" + nickname;
-
-        connection = (HttpURLConnection) new URL(url).openConnection();
-
-        connection.setRequestMethod("GET");
-
-        connection.getResponseCode();
-    }
-
-    public String changeNicknameData(String nickname) throws IOException {
-
-        displayName = displayName.replaceAll(" ", "%20");
-        displayName = displayName.replaceAll("&", "%26");
-        displayName = displayName.replaceAll("#", "%23");
-        friendName = friendName.replaceAll(" ", "%20");
-        friendName = friendName.replaceAll("&", "%26");
-        friendName = friendName.replaceAll("#", "%23");
-        nickname = nickname.replaceAll(" ", "%20");
-        nickname = nickname.replaceAll("&", "%26");
-        nickname = nickname.replaceAll("#", "%23");
-
-        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/friends/mod?userName=" + displayName + "&friendName=" + friendName + "&nickname=" + nickname;
-
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-
-        connection.setRequestMethod("GET");
-
-        int responseCode = connection.getResponseCode();
-
-        if(responseCode == 200){
-            String response = "";
-            Scanner scanner = new Scanner(connection.getInputStream());
-            while(scanner.hasNextLine()){
-                response += scanner.nextLine();
-                response += "\n";
-            }
-            scanner.close();
-
-            return response;
-        }
-
-        // an error happened
-        return null;
     }
 }

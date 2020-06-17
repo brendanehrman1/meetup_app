@@ -24,7 +24,9 @@ public class AccountActivity extends AppCompatActivity {
     private String displayName;
     private String username;
     private String password;
-    private TextView greetDisplay;
+    private TextView displayNameDisplay;
+    private TextView usernameDisplay;
+    private TextView passwordDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,12 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void update() {
-        greetDisplay = (TextView) findViewById(R.id.greetDisplay);
-        String buildString = "";
-        buildString += "Hello " + displayName + "!\n";
-        buildString += "Here is your information:\n\n";
-        buildString += "Display Name: " + displayName + "\n";
-        buildString += "Username: " + username + "\n";
-        buildString += "Password: " + password + "\n";
-        greetDisplay.setText(buildString);
+        displayNameDisplay = (TextView) findViewById(R.id.displayName);
+        usernameDisplay = (TextView) findViewById(R.id.username);
+        passwordDisplay = (TextView) findViewById(R.id.password);
+        displayNameDisplay.setText(displayName);
+        usernameDisplay.setText(username);
+        passwordDisplay.setText(password);
     }
 
     public void logout(View v) throws IOException {
@@ -63,14 +63,8 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void removeAccount(View v) throws IOException, JSONException {
-        greetDisplay = (TextView) findViewById(R.id.greetDisplay);
-        String info = removeUserData(displayName);
-        JSONObject json = new JSONObject(info);
-        if (json.getString("status").equals("notExist")) {
-            greetDisplay.setText("ERROR");
-        } else {
-            logout(null);
-        }
+        removeUserData(displayName);
+        logout(null);
     }
 
     public void loadAccountData() throws IOException, JSONException {

@@ -2,35 +2,135 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/buttonColor"
-    tools:context=".AddFriendActivity">
+    android:background="@color/darkBackground"
+    tools:context=".ChangeNicknameActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/friendborder_background"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendsBtn"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/friendName"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:background="@color/lightPop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/friendDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/tabColor"
-        android:gravity="center|center_horizontal"
-        android:text="Friends"
-        android:textColor="@color/darkBackground"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:id="@+id/removeFriendBtnBelow"
+        android:layout_width="256dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/lightPop"
+        android:gravity="center"
+        android:text="REMOVE REQUEST"
+        android:textColor="@color/popColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/changeNicknameBtnBelow" />
+
+    <TextView
+        android:id="@+id/changeNicknameBtnBelow"
+        android:layout_width="256dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/lightPop"
+        android:gravity="center"
+        android:text="CHANGE NICKNAME"
+        android:textColor="@color/popColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/nicknameBelow" />
+
+    <TextView
+        android:id="@+id/displayNameDisplayBelow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="DISPLAY NAME"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/displayNameBelow"
+        app:layout_constraintStart_toStartOf="@+id/displayNameBelow" />
+
+    <TextView
+        android:id="@+id/nicknameDisplayBelow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="NICKNAME"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nicknameBelow"
+        app:layout_constraintStart_toStartOf="@+id/displayNameBelow" />
+
+    <TextView
+        android:id="@+id/displayNameBelow"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/nicknameBelow"
+        android:layout_width="270dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/friendsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/displayNameBelow" />
 
     <LinearLayout
         android:id="@+id/friendsBtn"
         android:layout_width="41dp"
-        android:layout_height="165dp"
+        android:layout_height="175dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendDisplay">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/friendsTxt"
@@ -38,7 +138,7 @@
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
             android:rotation="-90"
-            android:text="MY FRIENDS"
+            android:text="FRIENDS"
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
@@ -47,13 +147,14 @@
     <LinearLayout
         android:id="@+id/requestsBtn"
         android:layout_width="41dp"
-        android:layout_height="165dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="175dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendsBtn">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/requestsTxt"
@@ -70,13 +171,14 @@
     <LinearLayout
         android:id="@+id/potFriendsBtn"
         android:layout_width="41dp"
-        android:layout_height="165dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="350dp"
         android:layout_weight="1"
         android:background="@drawable/friendborder_background"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/requestsBtn">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/potFriendsTxt"
@@ -223,38 +325,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/friendList"
-        android:layout_width="317dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/friendDisplay" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/potFriendsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/friendList" />
-
-    <TextView
-        android:id="@+id/addFriendBtn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="430dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/addfriend_background"
-        android:paddingTop="10dp"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/tint"
         android:layout_width="match_parent"
@@ -264,7 +334,7 @@
     <View
         android:id="@+id/wrapper"
         android:layout_width="302dp"
-        android:layout_height="250dp"
+        android:layout_height="180dp"
         android:background="@color/darkBackground"
         app:layout_constraintBottom_toTopOf="@+id/centerBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -278,37 +348,10 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/approveBtn"
+        app:layout_constraintBottom_toTopOf="@+id/changeNicknameBtn"
         app:layout_constraintEnd_toEndOf="@+id/wrapper"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/wrapper"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />
-
-    <TextView
-        android:id="@+id/displayNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="DISPLAY NAME"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/displayName"
-        app:layout_constraintStart_toStartOf="@+id/displayName" />
-
-    <Button
-        android:id="@+id/confirmBtn"
-        android:layout_width="270dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/lightPop"
-        android:onClick="sendFriendRequest"
-        android:text="Send Request"
-        android:textColor="@color/popColor"
-        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
-        app:layout_constraintEnd_toEndOf="@+id/nickname"
-        app:layout_constraintStart_toStartOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/nicknameDisplay"
@@ -322,25 +365,12 @@
         app:layout_constraintBottom_toTopOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname" />
 
-    <EditText
-        android:id="@+id/displayName"
-        android:layout_width="250dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="35dp"
-        android:background="@color/buttonColor"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/wrapper"
-        app:layout_constraintStart_toStartOf="@+id/wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/friendRequestDisplay" />
-
     <TextView
-        android:id="@+id/friendRequestDisplay"
+        android:id="@+id/changeNicknameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Create Friend Request"
+        android:text="Change Nickname"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -360,7 +390,21 @@
         app:layout_constraintEnd_toEndOf="@+id/wrapper"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="@+id/wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/displayName" />
+        app:layout_constraintTop_toBottomOf="@+id/changeNicknameDisplay" />
+
+    <Button
+        android:id="@+id/changeNicknameBtn"
+        android:layout_width="256dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/lightPop"
+        android:onClick="changeNickname"
+        android:text="CHANGE NICKNAME"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toEndOf="@+id/requestsBtn"
+        app:layout_constraintStart_toStartOf="@+id/wrapper" />
 
     <TextView
         android:id="@+id/backBtn"

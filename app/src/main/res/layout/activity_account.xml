@@ -5,8 +5,222 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFF2F1"
+    android:background="@color/buttonColor"
     tools:context=".AccountActivity">
+
+    <TextView
+        android:id="@+id/accountDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/tabColor"
+        android:gravity="center|center_horizontal"
+        android:text="My Account"
+        android:textColor="@color/darkBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="435dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountDisplay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/buttonColor"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:background="@color/darkBackground">
+
+                <TextView
+                    android:id="@+id/statusDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/changePassBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                <Button
+                    android:id="@+id/changePassBtn"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/lightPop"
+                    android:onClick="changePassword"
+                    android:text="Change Password"
+                    android:textColor="@color/popColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/infoDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Account Information"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/displayNameDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="DISPLAY NAME"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/displayName"
+                    app:layout_constraintStart_toStartOf="@+id/displayName" />
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/infoDisplay" />
+
+                <TextView
+                    android:id="@+id/usernameDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="USERNAME"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/username"
+                    app:layout_constraintStart_toStartOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/displayName" />
+
+                <TextView
+                    android:id="@+id/passwordDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="PASSWORD"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/password"
+                    app:layout_constraintStart_toStartOf="@+id/password" />
+
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/buttonColor"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/username" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/darkBackground">
+
+                <Button
+                    android:id="@+id/logoutBtn"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/lightPop"
+                    android:onClick="logout"
+                    android:text="LOGOUT"
+                    android:textColor="@color/popColor"
+                    app:layout_constraintBottom_toTopOf="@+id/removeAccBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/removeAccBtn"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/lightPop"
+                    android:onClick="removeAccount"
+                    android:text="REMOVE ACCOUNT"
+                    android:textColor="@color/popColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/managementDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Account Management"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -77,9 +291,9 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:onClick="goToAddTime"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="#CA054D"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -146,69 +360,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/greetDisplay"
+    <View
+        android:id="@+id/breakLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#5D576B"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="132dp" />
-
-    <TextView
-        android:id="@+id/logoutBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="196dp"
-        android:background="@drawable/login_background"
-        android:onClick="logout"
-        android:paddingTop="16dp"
-        android:text="                           LOG OUT"
-        android:textAlignment="textStart"
-        android:textColor="#5D576B"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:layout_height="4dp"
+        android:background="@drawable/horizontalline_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/logoutBtn2"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="304dp"
-        android:layout_marginEnd="124dp"
-        android:background="@drawable/login_background"
-        android:onClick="changePassword"
-        android:paddingTop="10dp"
-        android:text="                        CHANGE \n                          PASSWORD"
-        android:textAlignment="textStart"
-        android:textColor="#5D576B"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/addBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/login_background"
-        android:onClick="removeAccount"
-        android:paddingTop="10dp"
-        android:text="                         REMOVE\n                            ACCOUNT"
-        android:textAlignment="textStart"
-        android:textColor="#5D576B"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

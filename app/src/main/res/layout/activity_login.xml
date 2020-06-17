@@ -5,7 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/city_background"
     tools:context=".LoginActivity">
+
+    <View
+        android:id="@+id/wrapper"
+        android:layout_width="302dp"
+        android:layout_height="326dp"
+        android:background="@color/darkBackground"
+        app:layout_constraintBottom_toTopOf="@+id/centerBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/farRightBtn"
@@ -16,7 +27,7 @@
         android:background="@drawable/rightbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nACCOUNT"
-        android:textColor="#CA054D"
+        android:textColor="@color/popColor"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +41,7 @@
         android:background="@drawable/leftbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nFRIENDS"
-        android:textColor="#CA054D"
+        android:textColor="@color/popColor"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +56,7 @@
         android:background="@drawable/centerrightbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nMY TIMES"
-        android:textColor="#CA054D"
+        android:textColor="@color/popColor"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +71,7 @@
         android:background="@drawable/centerleftbutton_background"
         android:gravity="center_horizontal"
         android:text="\n\n\n\n\n\nCALENDAR"
-        android:textColor="#CA054D"
+        android:textColor="@color/popColor"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,8 +83,8 @@
         android:layout_marginTop="484dp"
         android:background="@drawable/centerbutton_background"
         android:gravity="center_horizontal"
-        android:textColor="#CA054D"
         android:text="\n\n\n\n\n\nMEET UP"
+        android:textColor="@color/popColor"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/centerRightBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -86,7 +97,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="504dp"
-        android:background="#5D576B"
+        android:background="@color/darkBackground"
         app:layout_constraintStart_toStartOf="@+id/farLeftBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +107,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="504dp"
         android:layout_marginEnd="60dp"
-        android:background="#5D576B"
+        android:background="@color/darkBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,72 +151,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="168dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="232dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/statusDisplay"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="310dp"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="76dp" />
-
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/loginBtn"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
+        android:id="@+id/welcomeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Welcome to Meet Up!"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toTopOf="@+id/wrapper" />
+
+    <TextView
+        android:id="@+id/usernameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="USERNAME"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username" />
+
+    <TextView
+        android:id="@+id/passwordDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="PASSWORD"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="250dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeDisplay" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="250dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/buttonColor"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <Button
         android:id="@+id/loginBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="196dp"
-        android:background="@drawable/login_background"
+        android:layout_width="248dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/lightPop"
         android:onClick="login"
-        android:paddingTop="16dp"
-        android:text="                             LOGIN"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Login"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toTopOf="@+id/createAccBtn"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password" />
 
-    <TextView
+    <Button
         android:id="@+id/createAccBtn"
-        android:layout_width="189dp"
-        android:layout_height="52dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/login_background"
+        android:layout_width="248dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lightPop"
         android:onClick="createAccount"
-        android:paddingTop="8dp"
-        android:text="                         CREATE\n                            ACCOUNT"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Create Account"
+        android:textColor="@color/popColor"
+        app:layout_constraintBottom_toBottomOf="@+id/wrapper"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

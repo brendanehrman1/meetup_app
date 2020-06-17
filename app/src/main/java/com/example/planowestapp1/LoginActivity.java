@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordInput;
     private TextView status;
     private String displayName;
+    private View wrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +47,22 @@ public class LoginActivity extends AppCompatActivity {
         usernameInput = (EditText) findViewById(R.id.username);
         passwordInput = (EditText) findViewById(R.id.password);
         status = (TextView) findViewById(R.id.statusDisplay);
+        wrapper = (View) findViewById(R.id.wrapper);
         String usernameInputStr = usernameInput.getText().toString();
         String passwordInputStr = passwordInput.getText().toString();
         if (usernameInputStr.length() == 0 || passwordInputStr.length() == 0) {
+            wrapper.getLayoutParams().height = 700;
+            wrapper.requestLayout();
             status.setText("Sorry, you must enter your username and password before logging in. Please try again.");
             return;
         }
         String info = getLoginData(usernameInputStr, passwordInputStr);
         JSONObject json = new JSONObject(info);
-        if (json.getString("status").equals("notExist"))
+        if (json.getString("status").equals("notExist")) {
+            wrapper.getLayoutParams().height = 700;
+            wrapper.requestLayout();
             status.setText("Sorry, your username and password are not correct. Please try again.");
-        else {
+        } else {
             displayName = json.getString("displayName");
             saveLoginData();
             startActivity(new Intent(LoginActivity.this, AccountActivity.class));

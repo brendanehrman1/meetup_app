@@ -27,8 +27,13 @@ import java.util.TimeZone;
 
 import static com.example.planowestapp1.MainActivity.PREF_NAME;
 
-public class AddTimeActivity extends AppCompatActivity {
+public class ModTimeActivity extends AppCompatActivity {
 
+    private TextView dayDisplayBelow;
+    private TextView startTimeDisplayBelow;
+    private TextView endTimeDisplayBelow;
+    private TextView durationDisplayBelow;
+    private TextView descriptionDisplayBelow;
     private TextView actionDisplay;
     private TextView statusDisplay;
     private Button todayBtn;
@@ -58,7 +63,7 @@ public class AddTimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_time);
+        setContentView(R.layout.activity_mod_time);
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -66,6 +71,31 @@ public class AddTimeActivity extends AppCompatActivity {
         }
         loadTimeData();
         page = 1;
+        
+        int hour = this.hour;
+        boolean startam = hour < 12 || hour == 24;
+        boolean endam = ((hour + (minute + duration) / 60) % 24) < 12;
+        if (hour > 12)
+            hour -= 12;
+        String startTimeStr = String.format("%02d:%02d", hour, minute);
+        hour = (hour + (minute + duration) / 60);
+        if (hour > 12)
+            hour -= 12;
+        String endTimeStr = String.format("%02d:%02d", hour, ((minute + duration) % 60));
+        if (startam)
+            startTimeStr += " AM";
+        else
+            startTimeStr += " PM";
+        if (endam)
+            endTimeStr += " AM";
+        else
+            endTimeStr += " PM";
+        String durationStr = (duration / 60) + " hours, " + (duration % 60) + " minutes";
+        dayDisplayBelow.setText(day);
+        startTimeDisplayBelow.setText(startTimeStr);
+        endTimeDisplayBelow.setText(endTimeStr);
+        durationDisplayBelow.setText(durationStr);
+        descriptionDisplayBelow.setText(description);
         durationPicker.setIs24HourView(true);
         try {
             Class<?> classForid = Class.forName("com.android.internal.R$id");
@@ -99,38 +129,24 @@ public class AddTimeActivity extends AppCompatActivity {
         descriptionInput.setVisibility(View.GONE);
         previousBtn.setVisibility(View.GONE);
         actionDisplay.setText("DAY");
-        todayBtn.setBackgroundColor(Color.parseColor("#3A3742"));
-        wrapper.getLayoutParams().height = 650;
+        if (day.equals("Today"))
+            todayBtn.setBackgroundColor(Color.parseColor("#3A3742"));
+        else if (day.equals("Tomorrow"))
+            tomorrowBtn.setBackgroundColor(Color.parseColor("#3A3742"));
+        else
+            inTwoDaysBtn.setBackgroundColor(Color.parseColor("#3A3742"));
+        wrapper.getLayoutParams().height = 490;
         wrapper.requestLayout();
-    }
-
-    public void goToAccount(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, AccountActivity.class));
-    }
-
-    public void goToTimes(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, TimesActivity.class));
-    }
-
-    public void goToCalendar(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, CalendarActivity.class));
-    }
-
-    public void goToFriends(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, FriendActivity.class));
-    }
-
-    public void goToAddTime(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, AddTimeActivity.class));
-    }
-
-    public void changePassword(View v) throws IOException {
-        startActivity(new Intent(AddTimeActivity.this, ChangePasswordActivity.class));
     }
 
     public void loadTimeData() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         displayName = sharedPreferences.getString("NAME", null);
+        dayDisplayBelow = (TextView) findViewById(R.id.dayBelow);
+        startTimeDisplayBelow = (TextView) findViewById(R.id.startTimeBelow);
+        endTimeDisplayBelow = (TextView) findViewById(R.id.endTimeBelow);
+        durationDisplayBelow = (TextView) findViewById(R.id.durationBelow);
+        descriptionDisplayBelow = (TextView) findViewById(R.id.descriptionBelow);
         actionDisplay = (TextView) findViewById(R.id.actionDisplay);
         statusDisplay = (TextView) findViewById(R.id.statusDisplay);
         todayBtn = (Button) findViewById(R.id.todayBtn);
@@ -142,11 +158,27 @@ public class AddTimeActivity extends AppCompatActivity {
         durationPicker = (TimePicker) findViewById(R.id.durationPicker);
         descriptionInput = (EditText) findViewById(R.id.description);
         wrapper = (View) findViewById(R.id.wrapper);
-        newDay = "Today";
-        newHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + (Calendar.getInstance().get(Calendar.MINUTE) + 15) / 60;
-        newMinute = Calendar.getInstance().get(Calendar.MINUTE) / 15 * 15 + 15;
-        newDuration = 60;
-        newDescription = "";
+        Bundle extras = getIntent().getExtras();
+        day = extras.getString("DAY");
+        hour = extras.getInt("HOUR");
+        minute = extras.getInt("MINUTE");
+        duration = extras.getInt("DURATION");
+        description = extras.getString("DESCRIPTION");
+        newDay = day;
+        newHour = hour;
+        newMinute = minute;
+        newDuration = duration;
+        newDescription = description;
+    }
+
+    public void goBack(View v) {
+        Intent intent = new Intent(ModTimeActivity.this, TimeDataActivity.class);
+        intent.putExtra("DAY", day);
+        intent.putExtra("HOUR", hour);
+        intent.putExtra("MINUTE", minute);
+        intent.putExtra("DURATION", duration);
+        intent.putExtra("DESCRIPTION", description);
+        startActivity(intent);
     }
 
     public void setDay(View v) {
@@ -196,7 +228,21 @@ public class AddTimeActivity extends AppCompatActivity {
             continueBtn.setText("FINISH");
         } else {
             newDescription = descriptionInput.getText().toString();
+            int deleteHour = this.hour;
+            String dayStr = "0";
+            if (day.equals("Tomorrow"))
+                dayStr = "1";
+            else if (day.equals("In Two Days"))
+                dayStr = "2";
             int offsetHours = TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 3600000;
+            deleteHour -= offsetHours;
+            if (deleteHour > 24) {
+                dayStr = Integer.toString(Integer.parseInt(dayStr) + 1);
+                deleteHour -= 24;
+            } else if (deleteHour < 0) {
+                dayStr = Integer.toString(Integer.parseInt(dayStr) - 1);
+                deleteHour += 24;
+            }
             int changedDay = 0;
             if (newDay.equals("Tomorrow"))
                 changedDay = 1;
@@ -216,18 +262,25 @@ public class AddTimeActivity extends AppCompatActivity {
             int duration = newDuration;
             String description = newDescription;
             if (description.length() == 0) {
-                wrapper.getLayoutParams().height = 700;
+                wrapper.getLayoutParams().height = 550;
                 wrapper.requestLayout();
                 statusDisplay.setText("Sorry, you must provide a description to set a time. Please try again.");
             } else if (changedDay == 0 && (hour < Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY) || hour == Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY) && minute < Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.MINUTE))) {
-                wrapper.getLayoutParams().height = 700;
+                wrapper.getLayoutParams().height = 550;
                 wrapper.requestLayout();
                 statusDisplay.setText("Sorry, your event must be held after the current time. Please try again.");
             } else {
+                removeTimeData(deleteHour, Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1));
                 addTimeData(changedDay + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1, hour, minute, duration, description);
                 //JSONObject json = new JSONObject(info);
                 //status.setText(json.get("status") + " " + hour + " " + minute + " " + (Integer.toString(Integer.parseInt(dayStr) + Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1)));
-                startActivity(new Intent(AddTimeActivity.this, TimesActivity.class));
+                Intent intent = new Intent(ModTimeActivity.this, TimeDataActivity.class);
+                intent.putExtra("DAY", newDay);
+                intent.putExtra("HOUR", newHour);
+                intent.putExtra("MINUTE", newMinute);
+                intent.putExtra("DURATION", newDuration);
+                intent.putExtra("DESCRIPTION", newDescription);
+                startActivity(intent);
             }
         }
         if (page < 4)
@@ -236,7 +289,7 @@ public class AddTimeActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void previous(View v) {
-        wrapper.getLayoutParams().height = 650;
+        wrapper.getLayoutParams().height = 490;
         wrapper.requestLayout();
         statusDisplay.setText("");
         if (page == 2) {
@@ -287,10 +340,10 @@ public class AddTimeActivity extends AppCompatActivity {
 
         int responseCode = connection.getResponseCode();
 
-        if (responseCode == 200) {
+        if(responseCode == 200){
             String response = "";
             Scanner scanner = new Scanner(connection.getInputStream());
-            while (scanner.hasNextLine()) {
+            while(scanner.hasNextLine()){
                 response += scanner.nextLine();
                 response += "\n";
             }
@@ -303,4 +356,35 @@ public class AddTimeActivity extends AppCompatActivity {
         return null;
     }
 
+    public String removeTimeData(int hour, String date) throws IOException {
+
+        description = description.replaceAll(" ", "%20");
+        description = description.replaceAll("&", "%26");
+        description = description.replaceAll("#", "%23");
+        displayName = displayName.replaceAll(" ", "%20");
+        displayName = displayName.replaceAll("&", "%26");
+        displayName = displayName.replaceAll("#", "%23");
+
+        String url = "http://ec2-3-23-128-64.us-east-2.compute.amazonaws.com:8080/times/remove?userName=" + displayName + "&date=" + date + "&hour=" + hour + "&minute=" + minute + "&duration=" + duration + "&description=" + description;
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+
+        if(responseCode == 200){
+            String response = "";
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+            return response;
+        }
+
+        // an error happened
+        return null;
+    }
 }
